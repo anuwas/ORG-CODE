@@ -18,18 +18,18 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.me.lc.billing.config.PartnerConfig;
-import com.me.lc.billing.dao.AcclynkSettlementFileDTR;
-import com.me.lc.billing.dao.AcBillingRepository;
-import com.me.lc.billing.dao.DailyDetailFileICDesc;
-import com.me.lc.billing.dao.mbDSIncomeExpense;
-import com.me.lc.billing.dao.mbPricing;
-import com.me.lc.billing.dto.PinlessDebitNetworkFees;
-import com.me.lc.util.BillingUtil;
+import com.me.lc.bil.config.PartnerConfig;
+import com.me.lc.bil.dao.AcclynkSettlementFileDTR;
+import com.me.lc.bil.dao.AcbilRepository;
+import com.me.lc.bil.dao.DailyDetailFileICDesc;
+import com.me.lc.bil.dao.mbDSIncomeExpense;
+import com.me.lc.bil.dao.mbPricing;
+import com.me.lc.bil.dto.PinlessDebitNetworkFees;
+import com.me.lc.util.bilUtil;
 import com.me.lc.util.ExpenseAcDTRUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class LcDailyBillingServiceTest {
+public class LcDailybilServiceTest {
 	
 	public static final String DATE_FORMAT_DD_MM_YY = "dd/MM/yyyy";
 	public static final String CARD_TYPE_VP = "VP";
@@ -41,13 +41,13 @@ public class LcDailyBillingServiceTest {
 	public static final int AUTHFEE = 1;
 
 	@Mock
-	private AcBillingRepository AcBillingRepository;
+	private AcbilRepository AcbilRepository;
 	
 	@Mock
 	private PartnerConfig partnerConfig;
 	
 	@InjectMocks
-	private lcDailyBillingService lcDailyBillingService;
+	private lcDailybilService lcDailybilService;
 	
 	@Before
 	 public void setUp() throws Exception {
@@ -56,54 +56,54 @@ public class LcDailyBillingServiceTest {
 	
 	@Test
 	public void acceptTest() {
-		Mockito.when(AcBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
-		Mockito.when(AcBillingRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
-		Mockito.when(AcBillingRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
+		Mockito.when(AcbilRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
+		Mockito.when(AcbilRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
+		Mockito.when(AcbilRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
 		Mockito.when(partnerConfig.getSwitchfeeconfig()).thenReturn(provideSwitchfeeconfig());
-		Mockito.when(AcBillingRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(1234567L);
-		lcDailyBillingService.accept("TEST.Ac.me.20181023.dat");
+		Mockito.when(AcbilRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(1234567L);
+		lcDailybilService.accept("TEST.Ac.me.20181023.dat");
 		
-		Mockito.when(AcBillingRepository.getAcSettlementDTRZeroDebitNetwork("TEST.Ac.me.20181023.dat")).thenReturn(provideAcSettlementDTRZeroDebitNetwork1());
-		Mockito.when(AcBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
-		Mockito.when(AcBillingRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
-		Mockito.when(AcBillingRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
+		Mockito.when(AcbilRepository.getAcSettlementDTRZeroDebitNetwork("TEST.Ac.me.20181023.dat")).thenReturn(provideAcSettlementDTRZeroDebitNetwork1());
+		Mockito.when(AcbilRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
+		Mockito.when(AcbilRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
+		Mockito.when(AcbilRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
 		Mockito.when(partnerConfig.getSwitchfeeconfig()).thenReturn(provideSwitchfeeconfig());
-		Mockito.when(AcBillingRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(1234567L);
-		lcDailyBillingService.accept("TEST.Ac.me.20181023.dat");
+		Mockito.when(AcbilRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(1234567L);
+		lcDailybilService.accept("TEST.Ac.me.20181023.dat");
 		
-		Mockito.when(AcBillingRepository.getAcSettlementDTRZeroDebitNetwork("TEST_Ac2018010101.txt")).thenReturn(provideAcSettlementDTRZeroDebitNetwork1());
-		Mockito.when(AcBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
-		Mockito.when(AcBillingRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
-		Mockito.when(AcBillingRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
+		Mockito.when(AcbilRepository.getAcSettlementDTRZeroDebitNetwork("TEST_Ac2018010101.txt")).thenReturn(provideAcSettlementDTRZeroDebitNetwork1());
+		Mockito.when(AcbilRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
+		Mockito.when(AcbilRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
+		Mockito.when(AcbilRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
 		Mockito.when(partnerConfig.getSwitchfeeconfig()).thenReturn(provideSwitchfeeconfig());
-		Mockito.when(AcBillingRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(1234567L);
-		lcDailyBillingService.accept("TEST.Ac.me.20181023.dat");
+		Mockito.when(AcbilRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(1234567L);
+		lcDailybilService.accept("TEST.Ac.me.20181023.dat");
 		
-		Mockito.when(AcBillingRepository.getAcSettlementDTRZeroDebitNetwork("TEST.Ac.me.20181023.dat")).thenReturn(null);
-		Mockito.when(AcBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
-		Mockito.when(AcBillingRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
-		Mockito.when(AcBillingRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
+		Mockito.when(AcbilRepository.getAcSettlementDTRZeroDebitNetwork("TEST.Ac.me.20181023.dat")).thenReturn(null);
+		Mockito.when(AcbilRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
+		Mockito.when(AcbilRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
+		Mockito.when(AcbilRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
 		Mockito.when(partnerConfig.getSwitchfeeconfig()).thenReturn(provideSwitchfeeconfig());
-		Mockito.when(AcBillingRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(1234567L);
-		lcDailyBillingService.accept("TEST.Ac.me.20181023.dat");
+		Mockito.when(AcbilRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(1234567L);
+		lcDailybilService.accept("TEST.Ac.me.20181023.dat");
 		
-		Mockito.when(AcBillingRepository.getAcSettlementDTRZeroDebitNetwork("TEST.Ac.me.20181023.dat")).thenReturn(null);
-		Mockito.when(AcBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(null);
-		Mockito.when(AcBillingRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(null);
-		Mockito.when(AcBillingRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(null);
+		Mockito.when(AcbilRepository.getAcSettlementDTRZeroDebitNetwork("TEST.Ac.me.20181023.dat")).thenReturn(null);
+		Mockito.when(AcbilRepository.getDailyDetailFileICDescVpMp()).thenReturn(null);
+		Mockito.when(AcbilRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(null);
+		Mockito.when(AcbilRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(null);
 		Mockito.when(partnerConfig.getSwitchfeeconfig()).thenReturn(null);
-		Mockito.when(AcBillingRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(null);
-		lcDailyBillingService.accept("TEST.Ac.me.20181023.dat");
+		Mockito.when(AcbilRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(null);
+		lcDailybilService.accept("TEST.Ac.me.20181023.dat");
 		
 	}
 	
 	@Test
 	public void populateIncomeTest() throws Exception {
-		Class<lcDailyBillingService> clazz1 = lcDailyBillingService.class;
+		Class<lcDailybilService> clazz1 = lcDailybilService.class;
 		Method met1 = clazz1.getDeclaredMethod("populateIncome", List.class,Map.class,Map.class);
 		met1.setAccessible(true);
 		
-		List<mbDSIncomeExpense>  mbDSIncomeExpenseList1 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), providembDSIncomeExpense1(),provideMerchantRawPricingFromLoadfile(),provideDailyDetailFileICDescVpMp1());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList1 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailybilService(), providembDSIncomeExpense1(),provideMerchantRawPricingFromLoadfile(),provideDailyDetailFileICDescVpMp1());
 		
 		Assert.assertEquals(941000122088L, mbDSIncomeExpenseList1.get(0).getMerchantNumber());
 		Assert.assertEquals(227, mbDSIncomeExpenseList1.get(0).getItemType());
@@ -111,21 +111,21 @@ public class LcDailyBillingServiceTest {
 		Assert.assertEquals(3.2, mbDSIncomeExpenseList1.get(0).getExpense(),0);
 		Assert.assertEquals("STAR", mbDSIncomeExpenseList1.get(0).getNetwork());
 		
-		List<mbDSIncomeExpense>  mbDSIncomeExpenseList2 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), null,provideMerchantRawPricingFromLoadfile(),provideDailyDetailFileICDescVpMp());
-		List<mbDSIncomeExpense>  mbDSIncomeExpenseList3 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), providembDSIncomeExpense1(),provideMerchantRawPricingFromLoadfile(),null);
-		List<mbDSIncomeExpense>  mbDSIncomeExpenseList4 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), providembDSIncomeExpense1(),provideMerchantRawPricingFromLoadfile(),new HashMap<>());
-		List<mbDSIncomeExpense>  mbDSIncomeExpenseList5 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), providembDSIncomeExpense2(),provideMerchantRawPricingFromLoadfile2(),provideDailyDetailFileICDescVpMp2());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList2 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailybilService(), null,provideMerchantRawPricingFromLoadfile(),provideDailyDetailFileICDescVpMp());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList3 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailybilService(), providembDSIncomeExpense1(),provideMerchantRawPricingFromLoadfile(),null);
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList4 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailybilService(), providembDSIncomeExpense1(),provideMerchantRawPricingFromLoadfile(),new HashMap<>());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList5 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailybilService(), providembDSIncomeExpense2(),provideMerchantRawPricingFromLoadfile2(),provideDailyDetailFileICDescVpMp2());
 	}
 	
 	@Test
 	public void populateExpenseTest() throws Exception {
-		Class<lcDailyBillingService> clazz1 = lcDailyBillingService.class;
+		Class<lcDailybilService> clazz1 = lcDailybilService.class;
 		Method met1 = clazz1.getDeclaredMethod("populateExpense", List.class,Map.class);
 		met1.setAccessible(true);
 		
-		List<mbDSIncomeExpense>  mbDSIncomeExpenseList1 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), null,providePartnerSwithFeeConfig());
-		List<mbDSIncomeExpense>  mbDSIncomeExpenseList2 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), new ArrayList<>(),providePartnerSwithFeeConfig());
-		List<mbDSIncomeExpense>  mbDSIncomeExpenseList3 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), providembDSIncomeExpense2(),providePartnerSwithFeeConfig2());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList1 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailybilService(), null,providePartnerSwithFeeConfig());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList2 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailybilService(), new ArrayList<>(),providePartnerSwithFeeConfig());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList3 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailybilService(), providembDSIncomeExpense2(),providePartnerSwithFeeConfig2());
 		
 		Assert.assertEquals(941000922495L, mbDSIncomeExpenseList3.get(0).getMerchantNumber());
 		Assert.assertEquals("VP", mbDSIncomeExpenseList3.get(0).getItemSubclass());
@@ -251,7 +251,7 @@ public class LcDailyBillingServiceTest {
 		mbPricing.setRate(0.1);
 		mbPricing.setPerItem(1.1);
 		mbPricing.setItemType(227);
-		final String checkCode = BillingUtil.generateCheckCodeFromPricingObj(941000922495L, "MP", 227);
+		final String checkCode = bilUtil.generateCheckCodeFromPricingObj(941000922495L, "MP", 227);
 		merchantRawPricingMap.put(checkCode, mbPricing);
 		return merchantRawPricingMap;
 	}
@@ -264,7 +264,7 @@ public class LcDailyBillingServiceTest {
 		mbPricing.setRate(0.1);
 		mbPricing.setPerItem(1.1);
 		mbPricing.setItemType(227);
-		final String checkCode = BillingUtil.generateCheckCodeFromPricingObj(941000922495L, "VP", 227);
+		final String checkCode = bilUtil.generateCheckCodeFromPricingObj(941000922495L, "VP", 227);
 		merchantRawPricingMap.put(checkCode, mbPricing);
 		return merchantRawPricingMap;
 	}
@@ -277,7 +277,7 @@ public class LcDailyBillingServiceTest {
 		mbPricing.setRate(0.1);
 		mbPricing.setPerItem(1.1);
 		mbPricing.setItemType(227);
-		final String checkCode = BillingUtil.generateCheckCodeFromPricingObj(941000922495L, "MP", 227);
+		final String checkCode = bilUtil.generateCheckCodeFromPricingObj(941000922495L, "MP", 227);
 		merchantRawPricingMap.put(checkCode, mbPricing);
 		return merchantRawPricingMap;
 	}
@@ -296,7 +296,7 @@ public class LcDailyBillingServiceTest {
 		dailyDetailFileICDesc.setRegIcCode("02A");
 		dailyDetailFileICDesc.setBaseRate(0.05);
 		dailyDetailFileICDesc.setBasePerItem(0.315);
-		final String generateCustomCheckCode = BillingUtil.generateCheckCodeFromDailyDetailFileICDescObj("MP", "Pulse - Regulated");
+		final String generateCustomCheckCode = bilUtil.generateCheckCodeFromDailyDetailFileICDescObj("MP", "Pulse - Regulated");
 		
 		dailyDetailFileICDesc.setCustomCheckCode(generateCustomCheckCode);
 		dailyDetailFileICDescMap.put(generateCustomCheckCode, dailyDetailFileICDesc);
@@ -318,7 +318,7 @@ public class LcDailyBillingServiceTest {
 		dailyDetailFileICDesc.setRegIcCode("02A");
 		dailyDetailFileICDesc.setBaseRate(0.05);
 		dailyDetailFileICDesc.setBasePerItem(0.315);
-		final String generateCustomCheckCode = BillingUtil.generateCheckCodeFromDailyDetailFileICDescObj("VP", "Star - Regulated");
+		final String generateCustomCheckCode = bilUtil.generateCheckCodeFromDailyDetailFileICDescObj("VP", "Star - Regulated");
 		
 		dailyDetailFileICDesc.setCustomCheckCode(generateCustomCheckCode);
 		dailyDetailFileICDescMap.put(generateCustomCheckCode, dailyDetailFileICDesc);
@@ -340,7 +340,7 @@ public class LcDailyBillingServiceTest {
 		dailyDetailFileICDesc.setRegIcCode("02A");
 		dailyDetailFileICDesc.setBaseRate(0.05);
 		dailyDetailFileICDesc.setBasePerItem(0.315);
-		final String generateCustomCheckCode = BillingUtil.generateCheckCodeFromDailyDetailFileICDescObj("VP", "Star - Regulated");
+		final String generateCustomCheckCode = bilUtil.generateCheckCodeFromDailyDetailFileICDescObj("VP", "Star - Regulated");
 		
 		dailyDetailFileICDesc.setCustomCheckCode(generateCustomCheckCode);
 		dailyDetailFileICDescMap.put(generateCustomCheckCode, dailyDetailFileICDesc);
@@ -360,10 +360,10 @@ public class LcDailyBillingServiceTest {
 	
 	private static double calculateDNfromPDNetworks(List<PinlessDebitNetworkFees> pinlessDebitNetworkFees, String network, double approvalAmount) throws Exception {
 		double debitNetworkFee = 0;
-		Class<lcDailyBillingService> clazz1 = lcDailyBillingService.class;
+		Class<lcDailybilService> clazz1 = lcDailybilService.class;
 		Method met1 = clazz1.getDeclaredMethod("calculateDNfromPDNetworks", List.class,String.class,double.class);
 		met1.setAccessible(true);
-		debitNetworkFee = (double) met1.invoke(new lcDailyBillingService(), pinlessDebitNetworkFees,network,approvalAmount);
+		debitNetworkFee = (double) met1.invoke(new lcDailybilService(), pinlessDebitNetworkFees,network,approvalAmount);
 		return debitNetworkFee;
 	}
 	
@@ -380,10 +380,10 @@ public class LcDailyBillingServiceTest {
 	@Test
 	public void getPartnerMerchantSwitchFeesTest() {
 		
-		Mockito.when(AcBillingRepository.getParnterMerchants(3941400180L)).thenReturn(provideMerchantNumber());
+		Mockito.when(AcbilRepository.getParnterMerchants(3941400180L)).thenReturn(provideMerchantNumber());
 		Map<Long,Double> partnerConfig1 = new HashMap<>();
 		partnerConfig1.put(3941400180L, 0.07);
-		Map<Long,Double> merchatWithSwitchFee = lcDailyBillingService.getPartnerMerchantSwitchFees(partnerConfig1);
+		Map<Long,Double> merchatWithSwitchFee = lcDailybilService.getPartnerMerchantSwitchFees(partnerConfig1);
 		
 		Assert.assertEquals(0.07,merchatWithSwitchFee.get(941000922584L),0);
 		Assert.assertEquals(0.07,merchatWithSwitchFee.get(941000922580L),0);
@@ -411,17 +411,17 @@ public class LcDailyBillingServiceTest {
 		approvalAmount=110.00;
 		debitNetworkFee = 0;
 		
-		Class<lcDailyBillingService> clazz1 = lcDailyBillingService.class;
+		Class<lcDailybilService> clazz1 = lcDailybilService.class;
 		Method met1 = clazz1.getDeclaredMethod("calculateDNfromPDNetworks", List.class,String.class,double.class);
 		met1.setAccessible(true);
 		
-		debitNetworkFee = (double) met1.invoke(new lcDailyBillingService(), pinlessDebitNetworkFees,network,approvalAmount);
+		debitNetworkFee = (double) met1.invoke(new lcDailybilService(), pinlessDebitNetworkFees,network,approvalAmount);
 		String formatedDebitNetworkFee1 = df2.format(debitNetworkFee);
 		Assert.assertEquals("3.64",formatedDebitNetworkFee1);
 		
 		network="PULS";
 		approvalAmount=120.00;
-		debitNetworkFee = (double) met1.invoke(new lcDailyBillingService(), pinlessDebitNetworkFees,network,approvalAmount);
+		debitNetworkFee = (double) met1.invoke(new lcDailybilService(), pinlessDebitNetworkFees,network,approvalAmount);
 		String formatedDebitNetworkFee2 = df2.format(debitNetworkFee);
 		Assert.assertEquals("4.75",formatedDebitNetworkFee2);
 	}

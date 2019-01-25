@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
-import com.me.lc.billing.dao.AcclynkSettlementFileDTR;
-import com.me.lc.billing.dao.mbDSIncomeExpense;
+import com.me.lc.bil.dao.AcclynkSettlementFileDTR;
+import com.me.lc.bil.dao.mbDSIncomeExpense;
 import com.me.lc.util.ExpenseAcDTRUtil;
 
 public class ExpenseAcDTRUtilTest {

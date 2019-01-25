@@ -1,4 +1,4 @@
-package com.me.lc.billing.dao;
+package com.me.lc.bil.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

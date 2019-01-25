@@ -1,4 +1,4 @@
-package com.me.lc.billing.util;
+package com.me.lc.bil.util;
 
 import java.lang.reflect.Constructor;
 import java.text.DateFormat;

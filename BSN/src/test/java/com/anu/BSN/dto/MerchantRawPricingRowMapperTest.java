@@ -1,4 +1,4 @@
-package com.me.lc.billing.dto;
+package com.me.lc.bil.dto;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.me.lc.billing.dao.mbPricing;
+import com.me.lc.bil.dao.mbPricing;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class MerchantRawPricingRowMapperTest {

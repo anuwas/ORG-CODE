@@ -19,12 +19,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.me.lc.billing.dto.AcDtrHdrDataCount;
-import com.me.lc.billing.dto.MBDS;
-import com.me.ps.billing.exception.BillingException;
+import com.me.lc.bil.dto.AcDtrHdrDataCount;
+import com.me.lc.bil.dto.MBDS;
+import com.me.ps.bil.exception.bilException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class AcBillingRepositoryImplTest {
+public class AcbilRepositoryImplTest {
 	
 	@Mock
 	private JdbcTemplate jdbcTemplate;
@@ -39,7 +39,7 @@ public class AcBillingRepositoryImplTest {
 	private ResultSet rs;
 	
 	@InjectMocks
-	private AcBillingRepositoryImpl AcBillingRepositoryImpl;
+	private AcbilRepositoryImpl AcbilRepositoryImpl;
 	
 	
 	@Before
@@ -56,10 +56,10 @@ public class AcBillingRepositoryImplTest {
 
 	@Test
 	public void callLoadFileIndexTest() {
-		AcBillingRepositoryImpl.callLoadFileIndex("lc_3941");
-		AcBillingRepositoryImpl.callLoadFileIndex(null);
+		AcbilRepositoryImpl.callLoadFileIndex("lc_3941");
+		AcbilRepositoryImpl.callLoadFileIndex(null);
 		Mockito.when(jdbcTemplate.queryForObject("SELECT load_file_id FROM load_file_index WHERE load_filename = ?", Long.class, "lc_3941")).thenReturn((long) 1234);
-		long loadfileId = AcBillingRepositoryImpl.callLoadFileIndex("lc_3941");
+		long loadfileId = AcbilRepositoryImpl.callLoadFileIndex("lc_3941");
 		Assert.assertEquals(1234, loadfileId);
 	}
 	
@@ -97,7 +97,7 @@ public class AcBillingRepositoryImplTest {
 
 				}
 				catch (SQLException e) {
-					throw new BillingException("Failed in AcBillingRepositoryImpl.insertIncomeExpenseIntoMBDS : ", e);
+					throw new bilException("Failed in AcbilRepositoryImpl.insertIncomeExpenseIntoMBDS : ", e);
 				}
 			}
 
@@ -107,29 +107,29 @@ public class AcBillingRepositoryImplTest {
 			}
 		})).thenReturn(new int[] {1});
 		
-		AcBillingRepositoryImpl.insertIncomeExpenseIntoMBDS(provideMBDSIncomeExpense());
+		AcbilRepositoryImpl.insertIncomeExpenseIntoMBDS(provideMBDSIncomeExpense());
 		List<MBDSIncomeExpense> MBDSIncomeExpenseList = new ArrayList<>();
-		AcBillingRepositoryImpl.insertIncomeExpenseIntoMBDS(MBDSIncomeExpenseList);
+		AcbilRepositoryImpl.insertIncomeExpenseIntoMBDS(MBDSIncomeExpenseList);
 		List<MBDSIncomeExpense> MBDSIncomeExpenseList1 = null;
-		AcBillingRepositoryImpl.insertIncomeExpenseIntoMBDS(MBDSIncomeExpenseList1);
-		AcBillingRepositoryImpl.insertIncomeExpenseIntoMBDS(null);
+		AcbilRepositoryImpl.insertIncomeExpenseIntoMBDS(MBDSIncomeExpenseList1);
+		AcbilRepositoryImpl.insertIncomeExpenseIntoMBDS(null);
 	}
 	
 	@Test
 	public void loadACHSummaryTest() {
-		AcBillingRepositoryImpl.loadACHSummary("lc-3941");
+		AcbilRepositoryImpl.loadACHSummary("lc-3941");
 		Mockito.when(jdbcTemplate.update("call load_ach_summary(?)", "lc-3941")).thenReturn(0);
 		
-		AcBillingRepositoryImpl.loadACHSummary("lc-3941");
+		AcbilRepositoryImpl.loadACHSummary("lc-3941");
 		Mockito.when(jdbcTemplate.update("call load_ach_summary(?)", "lc-3941")).thenReturn(1);
 		
-		AcBillingRepositoryImpl.loadACHSummary("lc-3941");
+		AcbilRepositoryImpl.loadACHSummary("lc-3941");
 		Mockito.when(jdbcTemplate.update("call load_ach_summary(?)", "lc-3941")).thenReturn(-1);
 		
-		AcBillingRepositoryImpl.loadACHSummary("lc-3941");
+		AcbilRepositoryImpl.loadACHSummary("lc-3941");
 		Mockito.when(jdbcTemplate.update("call load_ach_summary(?)", "lc-3941")).thenReturn(2);
 		
-		AcBillingRepositoryImpl.loadACHSummary("");
+		AcbilRepositoryImpl.loadACHSummary("");
 	}
 	
 	@Test
@@ -139,39 +139,39 @@ public class AcBillingRepositoryImplTest {
 		
 		int loadFileSequence = 0;
 		
-		loadFileSequence = AcBillingRepositoryImpl.generateFileIdSequence("", "2018-01-01");
+		loadFileSequence = AcbilRepositoryImpl.generateFileIdSequence("", "2018-01-01");
 		Assert.assertEquals(0, loadFileSequence);
 		
-		loadFileSequence = AcBillingRepositoryImpl.generateFileIdSequence("FileType", "2018-01-01");
+		loadFileSequence = AcbilRepositoryImpl.generateFileIdSequence("FileType", "2018-01-01");
 		
 		Assert.assertEquals(0, loadFileSequence);
 		
 		Mockito.when(jdbcTemplate.queryForObject(QUERY_FETCH_FILETYPE_COUNT, new Object[] {fileType}, Integer.class)).thenReturn(2);
-		loadFileSequence = AcBillingRepositoryImpl.generateFileIdSequence(fileType, "2018-01-01");
+		loadFileSequence = AcbilRepositoryImpl.generateFileIdSequence(fileType, "2018-01-01");
 		Assert.assertEquals(212, loadFileSequence);
 		
 		Mockito.when(jdbcTemplate.queryForObject(QUERY_FETCH_FILETYPE_COUNT, new Object[] {fileType}, Integer.class)).thenReturn(0);
-		loadFileSequence = AcBillingRepositoryImpl.generateFileIdSequence(fileType, "2018-01-01");
+		loadFileSequence = AcbilRepositoryImpl.generateFileIdSequence(fileType, "2018-01-01");
 		Assert.assertEquals(1, loadFileSequence);
 		
 		Mockito.when(jdbcTemplate.queryForObject(QUERY_FETCH_FILETYPE_COUNT, new Object[] {fileType}, Integer.class)).thenReturn(1);
 		Mockito.when(jdbcTemplate.queryForObject(QUERY_SELECT_FILENAME_POSTFIX, new Object[] {fileType}, new FileNamePostFixMapper())).thenReturn(null);
-		loadFileSequence = AcBillingRepositoryImpl.generateFileIdSequence(fileType, "2018-01-01");
+		loadFileSequence = AcbilRepositoryImpl.generateFileIdSequence(fileType, "2018-01-01");
 		Assert.assertEquals(212, loadFileSequence);
 		
 		Mockito.when(jdbcTemplate.queryForObject(QUERY_FETCH_FILETYPE_COUNT, new Object[] {fileType}, Integer.class)).thenReturn(1);
 		Mockito.when(this.jdbcTemplate.queryForObject(QUERY_SELECT_FILENAME_POSTFIX, new Object[] {fileType}, new FileNamePostFixMapper())).thenReturn(provideFileNamePostFix1());
-		loadFileSequence = AcBillingRepositoryImpl.generateFileIdSequence(fileType, "2018-01-01");
+		loadFileSequence = AcbilRepositoryImpl.generateFileIdSequence(fileType, "2018-01-01");
 		Assert.assertEquals(212, loadFileSequence);
 		
 		Mockito.when(jdbcTemplate.queryForObject(QUERY_FETCH_FILETYPE_COUNT, new Object[] {fileType}, Integer.class)).thenReturn(1);
 		Mockito.when(jdbcTemplate.queryForObject(QUERY_SELECT_FILENAME_POSTFIX, new Object[] {fileType}, new FileNamePostFixMapper())).thenReturn(provideFileNamePostFix2());
-		loadFileSequence = AcBillingRepositoryImpl.generateFileIdSequence(fileType, "2018-01-01");
+		loadFileSequence = AcbilRepositoryImpl.generateFileIdSequence(fileType, "2018-01-01");
 		Assert.assertEquals(212, loadFileSequence);
 		
 		Mockito.when(jdbcTemplate.queryForObject(QUERY_FETCH_FILETYPE_COUNT, new Object[] {fileType}, Integer.class)).thenReturn(1);
 		Mockito.when(jdbcTemplate.queryForObject(QUERY_SELECT_FILENAME_POSTFIX, new Object[] {fileType}, new FileNamePostFixMapper())).thenReturn(provideFileNamePostFix3());
-		loadFileSequence = AcBillingRepositoryImpl.generateFileIdSequence(fileType, "2018-01-01");
+		loadFileSequence = AcbilRepositoryImpl.generateFileIdSequence(fileType, "2018-01-01");
 		Assert.assertEquals(212, loadFileSequence);
 	}
 	
@@ -179,29 +179,29 @@ public class AcBillingRepositoryImplTest {
 	public void getListofSettlementFilesnotBilledTest() {
 		List<String> fileLIst = new ArrayList<>();
 		
-		fileLIst = AcBillingRepositoryImpl.getListofSettlementFilesnotBilled("2018-01-01");
+		fileLIst = AcbilRepositoryImpl.getListofSettlementFilesnotBilled("2018-01-01");
 		Assert.assertEquals(new ArrayList<>(), fileLIst);
 		Mockito.when(jdbcTemplate.query(Ac_SETTLEMENT_HDR_DTR_COMPARE, new Object[] {"lc_3941"}, new AcDtrHdrDataCount())).thenReturn(true);
-		fileLIst = AcBillingRepositoryImpl.getListofSettlementFilesnotBilled("2018-01-01");
+		fileLIst = AcbilRepositoryImpl.getListofSettlementFilesnotBilled("2018-01-01");
 		Assert.assertEquals(new ArrayList<>(), fileLIst);
 		Mockito.when(jdbcTemplate.query(Ac_SETTLEMENT_HDR_DTR_COMPARE, new Object[] {"lc_3941"}, new AcDtrHdrDataCount())).thenReturn(false);
-		fileLIst = AcBillingRepositoryImpl.getListofSettlementFilesnotBilled("2018-01-01");
+		fileLIst = AcbilRepositoryImpl.getListofSettlementFilesnotBilled("2018-01-01");
 		Assert.assertEquals(new ArrayList<>(), fileLIst);
 	}
 	
 	@Test
-	public void cleanAcDailyBillingDataByLoadfileDateTest() {
+	public void cleanAcDailybilDataByLoadfileDateTest() {
 		List<String> fileName = Arrays.asList(new String("lc_3941"),new String("lc_3941"));
 		boolean cleanApiStatus = false;
-		cleanApiStatus = AcBillingRepositoryImpl.cleanAcDailyBillingDataByLoadfileDate("2018-01-01", fileName);
+		cleanApiStatus = AcbilRepositoryImpl.cleanAcDailybilDataByLoadfileDate("2018-01-01", fileName);
 		Assert.assertEquals(true, cleanApiStatus);
 		
 		List<String> fileName1 = new ArrayList<>();
-		cleanApiStatus = AcBillingRepositoryImpl.cleanAcDailyBillingDataByLoadfileDate("2018-01-01", fileName1);
+		cleanApiStatus = AcbilRepositoryImpl.cleanAcDailybilDataByLoadfileDate("2018-01-01", fileName1);
 		Assert.assertEquals(true, cleanApiStatus);
 		
 		List<String> fileName2 = null;
-		cleanApiStatus = AcBillingRepositoryImpl.cleanAcDailyBillingDataByLoadfileDate("2018-01-01", fileName2);
+		cleanApiStatus = AcbilRepositoryImpl.cleanAcDailybilDataByLoadfileDate("2018-01-01", fileName2);
 		Assert.assertEquals(true, cleanApiStatus);
 	}
 	

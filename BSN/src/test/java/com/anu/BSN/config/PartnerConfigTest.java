@@ -1,4 +1,4 @@
-package com.me.lc.billing.config;
+package com.me.lc.bil.config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.me.ps.billing.config.TestConfig;
+import com.me.ps.bil.config.TestConfig;
 
 @ContextConfiguration(classes = TestConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)

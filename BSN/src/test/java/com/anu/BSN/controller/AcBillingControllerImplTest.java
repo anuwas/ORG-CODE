@@ -9,20 +9,20 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.me.lc.billing.scheduler.AcBillingScheduler;
-import com.me.lc.billing.service.AcService;
+import com.me.lc.bil.scheduler.AcbilScheduler;
+import com.me.lc.bil.service.AcService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class AcBillingControllerImplTest {
+public class AcbilControllerImplTest {
 
 	@Mock
-	private AcBillingScheduler AcBillingScheduler;
+	private AcbilScheduler AcbilScheduler;
 
 	@Mock
 	private AcService AcService;
 	
 	@InjectMocks
-	private AcBillingControllerImpl AcBillingControllerImpl;
+	private AcbilControllerImpl AcbilControllerImpl;
 	
 	 @Before
 	 public void setUp() throws Exception {
@@ -30,36 +30,36 @@ public class AcBillingControllerImplTest {
 	 }
 	 
 	 @Test
-	 public void dailyBillingTest() {
+	 public void dailybilTest() {
 		 String returnStatus = "";
-		 Mockito.when(AcService.dailyBillingJob("2018-10-10")).thenReturn("success");
-		 returnStatus = AcBillingControllerImpl.dailyBilling("2018-10-10");
+		 Mockito.when(AcService.dailybilJob("2018-10-10")).thenReturn("success");
+		 returnStatus = AcbilControllerImpl.dailybil("2018-10-10");
 		 Assert.assertEquals("success", returnStatus);
 	 }
 	
 	 @Test
 	 public void testApiTest() {
 		 String returnStatus = "";
-		 returnStatus = AcBillingControllerImpl.testApi();
+		 returnStatus = AcbilControllerImpl.testApi();
 		 Assert.assertEquals("Successfully Running", returnStatus);
 	 }
 	 
 	 @Test
 	 public void AcMerchantFundingTest() {
-		 String status = AcBillingControllerImpl.AcMerchantFunding();
+		 String status = AcbilControllerImpl.AcMerchantFunding();
 		 Assert.assertEquals("completed", status);
 	 }
 	 
 	 @Test
-	 public void clearDailyBillingDataByDateTest() {
+	 public void clearDailybilDataByDateTest() {
 		 String returnStatus = "";
 		 
-		 Mockito.when(AcService.clearDailyBillingDataByDateAPI("2018-10-10")).thenReturn("success");
-		 returnStatus = AcBillingControllerImpl.clearDailyBillingDataByDate("2018-10-12");
+		 Mockito.when(AcService.clearDailybilDataByDateAPI("2018-10-10")).thenReturn("success");
+		 returnStatus = AcbilControllerImpl.clearDailybilDataByDate("2018-10-12");
 		 Assert.assertEquals(null, returnStatus);
 		 
-		 Mockito.when(AcService.clearDailyBillingDataByDateAPI("2018-10-12")).thenReturn("success");
-		 returnStatus = AcBillingControllerImpl.clearDailyBillingDataByDate("2018-10-12");
+		 Mockito.when(AcService.clearDailybilDataByDateAPI("2018-10-12")).thenReturn("success");
+		 returnStatus = AcbilControllerImpl.clearDailybilDataByDate("2018-10-12");
 		 Assert.assertEquals("success", returnStatus);
 	 }
 }
