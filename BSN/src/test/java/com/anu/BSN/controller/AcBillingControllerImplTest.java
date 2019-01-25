@@ -9,8 +9,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.mes.lc.billing.scheduler.AcBillingScheduler;
-import com.mes.lc.billing.service.AcService;
+import com.me.lc.billing.scheduler.AcBillingScheduler;
+import com.me.lc.billing.service.AcService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AcBillingControllerImplTest {

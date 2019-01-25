@@ -1,4 +1,4 @@
-package com.mes.lc.billing.util;
+package com.me.lc.billing.util;
 
 import java.lang.reflect.Constructor;
 import java.text.ParseException;
@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
-import com.mes.lc.billing.dao.DailyDetailFileICDesc;
-import com.mes.lc.billing.dao.MbsPricing;
-import com.mes.lc.util.BillingUtil;
+import com.me.lc.billing.dao.DailyDetailFileICDesc;
+import com.me.lc.billing.dao.MbsPricing;
+import com.me.lc.util.BillingUtil;
 
 public class BillingUtilTest {
 	@Test

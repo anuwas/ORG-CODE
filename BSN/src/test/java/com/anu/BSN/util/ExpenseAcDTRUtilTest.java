@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
-import com.mes.lc.billing.dao.AcclynkSettlementFileDTR;
-import com.mes.lc.billing.dao.MBSDailySummaryIncomeExpense;
-import com.mes.lc.util.ExpenseAcculynkDTRUtil;
+import com.me.lc.billing.dao.AcclynkSettlementFileDTR;
+import com.me.lc.billing.dao.MBSDailySummaryIncomeExpense;
+import com.me.lc.util.ExpenseAcculynkDTRUtil;
 
 public class ExpenseAcDTRUtilTest {
 	public static final String DATE_FORMAT_DD_MM_YY = "dd/MM/yyyy";

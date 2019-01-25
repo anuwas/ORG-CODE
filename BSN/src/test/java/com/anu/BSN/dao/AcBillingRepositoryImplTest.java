@@ -19,9 +19,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.mes.lc.billing.dto.AcculynkDtrHdrDataCount;
-import com.mes.lc.billing.dto.MbsDailySummary;
-import com.mes.ps.billing.exception.BillingException;
+import com.me.lc.billing.dto.AcculynkDtrHdrDataCount;
+import com.me.lc.billing.dto.MbsDailySummary;
+import com.me.ps.billing.exception.BillingException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AcBillingRepositoryImplTest {
@@ -50,7 +50,7 @@ public class AcBillingRepositoryImplTest {
 	
 	private static final String QUERY_FETCH_FILETYPE_COUNT = "SELECT COUNT(1) FROM FILENAME_POSTFIX WHERE FILE_TYPE = ?";
 	private static final String QUERY_SELECT_FILENAME_POSTFIX = "SELECT LAST_DATE,LAST_COUNT FROM FILENAME_POSTFIX WHERE FILE_TYPE = ?";
-	private static final String ACCULYNK_SETTLEMENT_HDR_DTR_COMPARE = "SELECT  ( SELECT HDR.NUM_OF_RECORDS FROM   MES.ACCULYNK_SETTLEMENT_FILE_HDR HDR where HDR.LOADFILE_NAME= ? ) AS HDR_COUNT,   ( SELECT COUNT(*) FROM   MES.ACCULYNK_SETTLEMENT_FILE_DTR DTR LEFT JOIN MES.ACCULYNK_SETTLEMENT_FILE_HDR HDR ON HDR.HDR_SEQ_NUM=DTR.HDR_SEQ_NUM   WHERE HDR.LOADFILE_NAME = ? ) AS DTR_COUNT FROM  dual";
+	private static final String ACCULYNK_SETTLEMENT_HDR_DTR_COMPARE = "SELECT  ( SELECT HDR.NUM_OF_RECORDS FROM   me.ACCULYNK_SETTLEMENT_FILE_HDR HDR where HDR.LOADFILE_NAME= ? ) AS HDR_COUNT,   ( SELECT COUNT(*) FROM   me.ACCULYNK_SETTLEMENT_FILE_DTR DTR LEFT JOIN me.ACCULYNK_SETTLEMENT_FILE_HDR HDR ON HDR.HDR_SEQ_NUM=DTR.HDR_SEQ_NUM   WHERE HDR.LOADFILE_NAME = ? ) AS DTR_COUNT FROM  dual";
 
 	
 
@@ -191,17 +191,17 @@ public class AcBillingRepositoryImplTest {
 	
 	@Test
 	public void cleanAcculynkDailyBillingDataByLoadfileDateTest() {
-		List<String> fileNames = Arrays.asList(new String("lc_3941"),new String("lc_3941"));
+		List<String> fileName = Arrays.asList(new String("lc_3941"),new String("lc_3941"));
 		boolean cleanApiStatus = false;
-		cleanApiStatus = acculynkBillingRepositoryImpl.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01", fileNames);
+		cleanApiStatus = acculynkBillingRepositoryImpl.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01", fileName);
 		Assert.assertEquals(true, cleanApiStatus);
 		
-		List<String> fileNames1 = new ArrayList<>();
-		cleanApiStatus = acculynkBillingRepositoryImpl.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01", fileNames1);
+		List<String> fileName1 = new ArrayList<>();
+		cleanApiStatus = acculynkBillingRepositoryImpl.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01", fileName1);
 		Assert.assertEquals(true, cleanApiStatus);
 		
-		List<String> fileNames2 = null;
-		cleanApiStatus = acculynkBillingRepositoryImpl.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01", fileNames2);
+		List<String> fileName2 = null;
+		cleanApiStatus = acculynkBillingRepositoryImpl.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01", fileName2);
 		Assert.assertEquals(true, cleanApiStatus);
 	}
 	

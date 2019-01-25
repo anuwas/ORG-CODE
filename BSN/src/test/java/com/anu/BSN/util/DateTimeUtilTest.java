@@ -1,4 +1,4 @@
-package com.mes.lc.billing.util;
+package com.me.lc.billing.util;
 
 import java.lang.reflect.Constructor;
 import java.text.DateFormat;
@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import org.junit.Assert;
 import org.junit.Test;
-import com.mes.lc.util.DateTimeUtil;
+import com.me.lc.util.DateTimeUtil;
 
 
 public class DateTimeUtilTest {

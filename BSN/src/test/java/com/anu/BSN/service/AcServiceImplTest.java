@@ -15,9 +15,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.mes.lc.billing.dao.AcculynkBillingRepository;
-import com.mes.lc.billing.dao.DailyDetailFileDTF;
-import com.mes.ps.billing.util.DateTimeUtils;
+import com.me.lc.billing.dao.AcculynkBillingRepository;
+import com.me.lc.billing.dao.DailyDetailFileDTF;
+import com.me.ps.billing.util.DateTimeUtils;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -175,10 +175,10 @@ public class AcServiceImplTest {
 	 @Test
 	 public void clearDailyBillingDataByDateAPITest() {
 		 String returnStatus = "";
-		 List<String> loadfileNames = Arrays.asList(new String("TEXT.ACCULYNL1.dat"),new String("TEXT.ACCULYNL2.dat"));
+		 List<String> loadfileName = Arrays.asList(new String("TEXT.ACCULYNL1.dat"),new String("TEXT.ACCULYNL2.dat"));
 		 
 		 
-		 Mockito.when(acculynkBillingRepository.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01",loadfileNames)).thenReturn(true);
+		 Mockito.when(acculynkBillingRepository.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01",loadfileName)).thenReturn(true);
 		 returnStatus = acculynkServiceImpl.clearDailyBillingDataByDateAPI("2018-01-01");
 		 
 		 Assert.assertEquals("fail", returnStatus);
@@ -186,12 +186,12 @@ public class AcServiceImplTest {
 		 returnStatus =  acculynkServiceImpl.clearDailyBillingDataByDateAPI("2018-01-01");
 		 Assert.assertEquals("fail", returnStatus);
 		 
-		 Mockito.when(acculynkBillingRepository.cleanAcculynkDailyBillingDataByLoadfileDate("",loadfileNames)).thenReturn(false);
+		 Mockito.when(acculynkBillingRepository.cleanAcculynkDailyBillingDataByLoadfileDate("",loadfileName)).thenReturn(false);
 		 returnStatus = acculynkServiceImpl.clearDailyBillingDataByDateAPI("2018-01-01");
 		 
 		 Assert.assertEquals("fail", returnStatus);
-		 Mockito.when(acculynkBillingRepository.getListofSettlementFilesToClear("2018-01-01")).thenReturn(loadfileNames);
-		 Mockito.when(acculynkBillingRepository.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01",loadfileNames)).thenReturn(true);
+		 Mockito.when(acculynkBillingRepository.getListofSettlementFilesToClear("2018-01-01")).thenReturn(loadfileName);
+		 Mockito.when(acculynkBillingRepository.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01",loadfileName)).thenReturn(true);
 		 returnStatus = acculynkServiceImpl.clearDailyBillingDataByDateAPI("2018-01-01");
 		 
 		 

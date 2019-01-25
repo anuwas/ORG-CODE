@@ -1,4 +1,4 @@
-package com.mes.lc.billing.dao;
+package com.me.lc.billing.dao;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

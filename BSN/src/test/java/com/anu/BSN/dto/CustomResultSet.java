@@ -1,4 +1,4 @@
-package com.mes.lc.billing.dto;
+package com.me.lc.billing.dto;
 
 import java.sql.ResultSet;
 import java.util.List;
