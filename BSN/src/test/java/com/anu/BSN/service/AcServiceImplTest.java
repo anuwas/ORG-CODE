@@ -15,8 +15,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.mes.lcr.billing.dao.AcculynkBillingRepository;
-import com.mes.lcr.billing.dao.DailyDetailFileDTF;
+import com.mes.lc.billing.dao.AcculynkBillingRepository;
+import com.mes.lc.billing.dao.DailyDetailFileDTF;
 import com.mes.ps.billing.util.DateTimeUtils;
 
 
@@ -27,7 +27,7 @@ public class AcServiceImplTest {
 	 private AcculynkBillingRepository acculynkBillingRepository;
 
 	 @Mock
-	 private LcrDailyBillingService lcrDailyBillingService;
+	 private lcDailyBillingService lcDailyBillingService;
 	 
 	 @InjectMocks
 	 private AcculynkServiceImpl acculynkServiceImpl;
@@ -60,14 +60,14 @@ public class AcServiceImplTest {
 	@Test
 	  public void updateMonthlyBillingSummary() throws ParseException {
 		String loadFileName = this.generateLoadFileName(3941);
-	    Assert.assertEquals("lcr3941_020118_001.dat", loadFileName);
+	    Assert.assertEquals("lc3941_020118_001.dat", loadFileName);
 	  }
 	
 	private String generateLoadFileName(long bankNumber) throws ParseException{
 		String sDate1="10/02/2018";  
 		Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);  
 	    String firstDayOfMonth = new SimpleDateFormat("MMddyy").format(DateTimeUtils.getDate(date1, -1, 0));
-	    String loadFilename = "lcr" + bankNumber + "_" + firstDayOfMonth + "_001.dat";
+	    String loadFilename = "lc" + bankNumber + "_" + firstDayOfMonth + "_001.dat";
 	    return loadFilename;
 	  }
 	

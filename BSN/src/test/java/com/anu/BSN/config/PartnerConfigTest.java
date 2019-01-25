@@ -1,4 +1,4 @@
-package com.mes.lcr.billing.config;
+package com.mes.lc.billing.config;
 
 import java.util.ArrayList;
 import java.util.List;

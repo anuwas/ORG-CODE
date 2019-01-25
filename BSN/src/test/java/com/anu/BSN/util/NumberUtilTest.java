@@ -1,9 +1,9 @@
-package com.mes.lcr.billing.util;
+package com.mes.lc.billing.util;
 
 import java.lang.reflect.Constructor;
 import org.junit.Assert;
 import org.junit.Test;
-import com.mes.lcr.util.NumberUtil;
+import com.mes.lc.util.NumberUtil;
 
 public class NumberUtilTest {
 

@@ -1,4 +1,4 @@
-package com.mes.lcr.billing.dto;
+package com.mes.lc.billing.dto;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.mes.lcr.billing.dao.DailyDetailFileICDesc;
+import com.mes.lc.billing.dao.DailyDetailFileICDesc;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DailyDetailFileICDescRowMapperTest {
