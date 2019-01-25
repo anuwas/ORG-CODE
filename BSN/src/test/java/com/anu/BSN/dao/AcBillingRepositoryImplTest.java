@@ -20,7 +20,7 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.me.lc.billing.dto.AcDtrHdrDataCount;
-import com.me.lc.billing.dto.MbsDailySummary;
+import com.me.lc.billing.dto.MBDS;
 import com.me.ps.billing.exception.BillingException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -65,54 +65,54 @@ public class AcBillingRepositoryImplTest {
 	
 	
 	@Test
-	public void insertIncomeExpenseIntoMbsDailySummaryTest() throws SQLException {
+	public void insertIncomeExpenseIntoMBDSTest() throws SQLException {
 		
 		Mockito.when(c.prepareStatement(Mockito.any(String.class))).thenReturn(ps);
 		
-		List<MBSDailySummaryIncomeExpense> mbsDailySummaryIncomeExpenselist = provideMBSDailySummaryIncomeExpense();
+		List<MBDSIncomeExpense> MBDSIncomeExpenselist = provideMBDSIncomeExpense();
 		Mockito.when(jdbcTemplate.batchUpdate("SQL", new BatchPreparedStatementSetter(){
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
 				try {
-					ps.setLong(1, mbsDailySummaryIncomeExpenselist.get(i).getMerchantNumber());
-					ps.setDate(2, new java.sql.Date(mbsDailySummaryIncomeExpenselist.get(i).getActivityDate().getTime()));
-					ps.setInt(3, mbsDailySummaryIncomeExpenselist.get(i).getItemType());
-					ps.setString(4, mbsDailySummaryIncomeExpenselist.get(i).getItemSubclass());
-					ps.setString(5, mbsDailySummaryIncomeExpenselist.get(i).getIcCat());
-					ps.setInt(6, mbsDailySummaryIncomeExpenselist.get(i).getItemCount());
-					ps.setDouble(7, mbsDailySummaryIncomeExpenselist.get(i).getItemAmount());
-					ps.setInt(8, mbsDailySummaryIncomeExpenselist.get(i).getSalesCount());
-					ps.setDouble(9, mbsDailySummaryIncomeExpenselist.get(i).getSalesAmount());
-					ps.setInt(10, mbsDailySummaryIncomeExpenselist.get(i).getCreditCount());
-					ps.setDouble(11, mbsDailySummaryIncomeExpenselist.get(i).getCreditAmount());
-					ps.setDouble(12, mbsDailySummaryIncomeExpenselist.get(i).getRate());
-					ps.setDouble(13, mbsDailySummaryIncomeExpenselist.get(i).getPerItem());
-					ps.setDouble(14, mbsDailySummaryIncomeExpenselist.get(i).getFeesDue());
-					ps.setDouble(15, mbsDailySummaryIncomeExpenselist.get(i).getFeesPaid());
-					ps.setDouble(16, mbsDailySummaryIncomeExpenselist.get(i).getExpense());
-					ps.setString(17, mbsDailySummaryIncomeExpenselist.get(i).getDataSourceName());
-					ps.setLong(18, mbsDailySummaryIncomeExpenselist.get(i).getDataSourceId());
+					ps.setLong(1, MBDSIncomeExpenselist.get(i).getMerchantNumber());
+					ps.setDate(2, new java.sql.Date(MBDSIncomeExpenselist.get(i).getActivityDate().getTime()));
+					ps.setInt(3, MBDSIncomeExpenselist.get(i).getItemType());
+					ps.setString(4, MBDSIncomeExpenselist.get(i).getItemSubclass());
+					ps.setString(5, MBDSIncomeExpenselist.get(i).getIcCat());
+					ps.setInt(6, MBDSIncomeExpenselist.get(i).getItemCount());
+					ps.setDouble(7, MBDSIncomeExpenselist.get(i).getItemAmount());
+					ps.setInt(8, MBDSIncomeExpenselist.get(i).getSalesCount());
+					ps.setDouble(9, MBDSIncomeExpenselist.get(i).getSalesAmount());
+					ps.setInt(10, MBDSIncomeExpenselist.get(i).getCreditCount());
+					ps.setDouble(11, MBDSIncomeExpenselist.get(i).getCreditAmount());
+					ps.setDouble(12, MBDSIncomeExpenselist.get(i).getRate());
+					ps.setDouble(13, MBDSIncomeExpenselist.get(i).getPerItem());
+					ps.setDouble(14, MBDSIncomeExpenselist.get(i).getFeesDue());
+					ps.setDouble(15, MBDSIncomeExpenselist.get(i).getFeesPaid());
+					ps.setDouble(16, MBDSIncomeExpenselist.get(i).getExpense());
+					ps.setString(17, MBDSIncomeExpenselist.get(i).getDataSourceName());
+					ps.setLong(18, MBDSIncomeExpenselist.get(i).getDataSourceId());
 					ps.setInt(19, 0);
-					ps.setDouble(20, mbsDailySummaryIncomeExpenselist.get(i).getExpenseActual());
+					ps.setDouble(20, MBDSIncomeExpenselist.get(i).getExpenseActual());
 
 				}
 				catch (SQLException e) {
-					throw new BillingException("Failed in AcBillingRepositoryImpl.insertIncomeExpenseIntoMbsDailySummary : ", e);
+					throw new BillingException("Failed in AcBillingRepositoryImpl.insertIncomeExpenseIntoMBDS : ", e);
 				}
 			}
 
 			@Override
 			public int getBatchSize() {
-				return mbsDailySummaryIncomeExpenselist.size();
+				return MBDSIncomeExpenselist.size();
 			}
 		})).thenReturn(new int[] {1});
 		
-		AcBillingRepositoryImpl.insertIncomeExpenseIntoMbsDailySummary(provideMBSDailySummaryIncomeExpense());
-		List<MBSDailySummaryIncomeExpense> mBSDailySummaryIncomeExpenseList = new ArrayList<>();
-		AcBillingRepositoryImpl.insertIncomeExpenseIntoMbsDailySummary(mBSDailySummaryIncomeExpenseList);
-		List<MBSDailySummaryIncomeExpense> mBSDailySummaryIncomeExpenseList1 = null;
-		AcBillingRepositoryImpl.insertIncomeExpenseIntoMbsDailySummary(mBSDailySummaryIncomeExpenseList1);
-		AcBillingRepositoryImpl.insertIncomeExpenseIntoMbsDailySummary(null);
+		AcBillingRepositoryImpl.insertIncomeExpenseIntoMBDS(provideMBDSIncomeExpense());
+		List<MBDSIncomeExpense> MBDSIncomeExpenseList = new ArrayList<>();
+		AcBillingRepositoryImpl.insertIncomeExpenseIntoMBDS(MBDSIncomeExpenseList);
+		List<MBDSIncomeExpense> MBDSIncomeExpenseList1 = null;
+		AcBillingRepositoryImpl.insertIncomeExpenseIntoMBDS(MBDSIncomeExpenseList1);
+		AcBillingRepositoryImpl.insertIncomeExpenseIntoMBDS(null);
 	}
 	
 	@Test
@@ -229,54 +229,54 @@ public class AcBillingRepositoryImplTest {
 	}
 	
 
-	public List<MBSDailySummaryIncomeExpense> provideMBSDailySummaryIncomeExpense(){
-		List<MBSDailySummaryIncomeExpense> mBSDailySummaryIncomeExpenseList = new ArrayList<>();
-		MBSDailySummaryIncomeExpense mbsDailySummaryIncomeExpenseObj1 = new MBSDailySummaryIncomeExpense();
-		mbsDailySummaryIncomeExpenseObj1.setMerchantNumber(3490001L);
-		mbsDailySummaryIncomeExpenseObj1.setItemType(227);
-		mbsDailySummaryIncomeExpenseObj1.setItemSubclass("VP");
-		mbsDailySummaryIncomeExpenseObj1.setActivityDate(new Date());
-		mbsDailySummaryIncomeExpenseObj1.setExpense(20.17);
-		mbsDailySummaryIncomeExpenseObj1.setExpenseActual(20.17);
-		mbsDailySummaryIncomeExpenseObj1.setSalesCount(20);
-		mbsDailySummaryIncomeExpenseObj1.setSalesAmount(120.20);
-		mbsDailySummaryIncomeExpenseObj1.setCreditCount(1);
-		mbsDailySummaryIncomeExpenseObj1.setCreditAmount(1);
-		mbsDailySummaryIncomeExpenseObj1.setItemCount(1);
-		mbsDailySummaryIncomeExpenseObj1.setItemAmount(20);
-		mbsDailySummaryIncomeExpenseObj1.setDataSourceName("lc_3941_001");
-		mbsDailySummaryIncomeExpenseObj1.setDataSourceId(10001);
-		mbsDailySummaryIncomeExpenseObj1.setRate(1.20);
-		mbsDailySummaryIncomeExpenseObj1.setPerItem(2.20);
-		mbsDailySummaryIncomeExpenseObj1.setFeesPaid(2.20);
-		mbsDailySummaryIncomeExpenseObj1.setFeesDue(1.20);
-		mbsDailySummaryIncomeExpenseObj1.setNetwork("STAR");
-		mbsDailySummaryIncomeExpenseObj1.setRegulatedIndicator("U");
-		mbsDailySummaryIncomeExpenseObj1.setIcCat("A1");
-		mBSDailySummaryIncomeExpenseList.add(mbsDailySummaryIncomeExpenseObj1);
-		return mBSDailySummaryIncomeExpenseList;
+	public List<MBDSIncomeExpense> provideMBDSIncomeExpense(){
+		List<MBDSIncomeExpense> MBDSIncomeExpenseList = new ArrayList<>();
+		MBDSIncomeExpense MBDSIncomeExpenseObj1 = new MBDSIncomeExpense();
+		MBDSIncomeExpenseObj1.setMerchantNumber(3490001L);
+		MBDSIncomeExpenseObj1.setItemType(227);
+		MBDSIncomeExpenseObj1.setItemSubclass("VP");
+		MBDSIncomeExpenseObj1.setActivityDate(new Date());
+		MBDSIncomeExpenseObj1.setExpense(20.17);
+		MBDSIncomeExpenseObj1.setExpenseActual(20.17);
+		MBDSIncomeExpenseObj1.setSalesCount(20);
+		MBDSIncomeExpenseObj1.setSalesAmount(120.20);
+		MBDSIncomeExpenseObj1.setCreditCount(1);
+		MBDSIncomeExpenseObj1.setCreditAmount(1);
+		MBDSIncomeExpenseObj1.setItemCount(1);
+		MBDSIncomeExpenseObj1.setItemAmount(20);
+		MBDSIncomeExpenseObj1.setDataSourceName("lc_3941_001");
+		MBDSIncomeExpenseObj1.setDataSourceId(10001);
+		MBDSIncomeExpenseObj1.setRate(1.20);
+		MBDSIncomeExpenseObj1.setPerItem(2.20);
+		MBDSIncomeExpenseObj1.setFeesPaid(2.20);
+		MBDSIncomeExpenseObj1.setFeesDue(1.20);
+		MBDSIncomeExpenseObj1.setNetwork("STAR");
+		MBDSIncomeExpenseObj1.setRegulatedIndicator("U");
+		MBDSIncomeExpenseObj1.setIcCat("A1");
+		MBDSIncomeExpenseList.add(MBDSIncomeExpenseObj1);
+		return MBDSIncomeExpenseList;
 	}
 	
-	public MbsDailySummary provideMbsDailySummary() {
-		MbsDailySummary mbsDailySummary = new MbsDailySummary();
-		mbsDailySummary.setRecId(1234);
-		mbsDailySummary.setMerchantNumber(94389990);
-		mbsDailySummary.setActivityDate(new Date());
-		mbsDailySummary.setItemType(227);
-		mbsDailySummary.setItemSubclass("VP");
-		mbsDailySummary.setSaleCount(1);
-		mbsDailySummary.setItemCount(1);
-		mbsDailySummary.setItemAmount(1);
-		mbsDailySummary.setSaleAmount(1);
-		mbsDailySummary.setCreditCount(1);
-		mbsDailySummary.setCreditAmount(100);
-		mbsDailySummary.setFeesDue(12);
-		mbsDailySummary.setFeesPaid(12);
-		mbsDailySummary.setExpense(23.40);
-		mbsDailySummary.setExpenseActual(34.40);
-		mbsDailySummary.setDataSource("lc_3941");
-		mbsDailySummary.setDataSourceId(1234);
-		return mbsDailySummary;
+	public MBDS provideMBDS() {
+		MBDS MBDS = new MBDS();
+		MBDS.setRecId(1234);
+		MBDS.setMerchantNumber(94389990);
+		MBDS.setActivityDate(new Date());
+		MBDS.setItemType(227);
+		MBDS.setItemSubclass("VP");
+		MBDS.setSaleCount(1);
+		MBDS.setItemCount(1);
+		MBDS.setItemAmount(1);
+		MBDS.setSaleAmount(1);
+		MBDS.setCreditCount(1);
+		MBDS.setCreditAmount(100);
+		MBDS.setFeesDue(12);
+		MBDS.setFeesPaid(12);
+		MBDS.setExpense(23.40);
+		MBDS.setExpenseActual(34.40);
+		MBDS.setDataSource("lc_3941");
+		MBDS.setDataSourceId(1234);
+		return MBDS;
 	}
 	
 	public List<DailyDetailFileDtDetail> provideDailyDetailFileDtDetail() {

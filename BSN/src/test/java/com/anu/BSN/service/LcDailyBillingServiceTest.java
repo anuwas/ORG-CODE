@@ -22,8 +22,8 @@ import com.me.lc.billing.config.PartnerConfig;
 import com.me.lc.billing.dao.AcclynkSettlementFileDTR;
 import com.me.lc.billing.dao.AcBillingRepository;
 import com.me.lc.billing.dao.DailyDetailFileICDesc;
-import com.me.lc.billing.dao.MBSDailySummaryIncomeExpense;
-import com.me.lc.billing.dao.MbsPricing;
+import com.me.lc.billing.dao.mbDSIncomeExpense;
+import com.me.lc.billing.dao.mbPricing;
 import com.me.lc.billing.dto.PinlessDebitNetworkFees;
 import com.me.lc.util.BillingUtil;
 import com.me.lc.util.ExpenseAcDTRUtil;
@@ -103,18 +103,18 @@ public class LcDailyBillingServiceTest {
 		Method met1 = clazz1.getDeclaredMethod("populateIncome", List.class,Map.class,Map.class);
 		met1.setAccessible(true);
 		
-		List<MBSDailySummaryIncomeExpense>  mbsDailySummaryIncomeExpenseList1 = (List<MBSDailySummaryIncomeExpense>) met1.invoke(new lcDailyBillingService(), provideMBSDailySummaryIncomeExpense1(),provideMerchantRawPricingFromLoadfile(),provideDailyDetailFileICDescVpMp1());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList1 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), providembDSIncomeExpense1(),provideMerchantRawPricingFromLoadfile(),provideDailyDetailFileICDescVpMp1());
 		
-		Assert.assertEquals(941000122088L, mbsDailySummaryIncomeExpenseList1.get(0).getMerchantNumber());
-		Assert.assertEquals(227, mbsDailySummaryIncomeExpenseList1.get(0).getItemType());
-		Assert.assertEquals("VP", mbsDailySummaryIncomeExpenseList1.get(0).getItemSubclass());
-		Assert.assertEquals(3.2, mbsDailySummaryIncomeExpenseList1.get(0).getExpense(),0);
-		Assert.assertEquals("STAR", mbsDailySummaryIncomeExpenseList1.get(0).getNetwork());
+		Assert.assertEquals(941000122088L, mbDSIncomeExpenseList1.get(0).getMerchantNumber());
+		Assert.assertEquals(227, mbDSIncomeExpenseList1.get(0).getItemType());
+		Assert.assertEquals("VP", mbDSIncomeExpenseList1.get(0).getItemSubclass());
+		Assert.assertEquals(3.2, mbDSIncomeExpenseList1.get(0).getExpense(),0);
+		Assert.assertEquals("STAR", mbDSIncomeExpenseList1.get(0).getNetwork());
 		
-		List<MBSDailySummaryIncomeExpense>  mbsDailySummaryIncomeExpenseList2 = (List<MBSDailySummaryIncomeExpense>) met1.invoke(new lcDailyBillingService(), null,provideMerchantRawPricingFromLoadfile(),provideDailyDetailFileICDescVpMp());
-		List<MBSDailySummaryIncomeExpense>  mbsDailySummaryIncomeExpenseList3 = (List<MBSDailySummaryIncomeExpense>) met1.invoke(new lcDailyBillingService(), provideMBSDailySummaryIncomeExpense1(),provideMerchantRawPricingFromLoadfile(),null);
-		List<MBSDailySummaryIncomeExpense>  mbsDailySummaryIncomeExpenseList4 = (List<MBSDailySummaryIncomeExpense>) met1.invoke(new lcDailyBillingService(), provideMBSDailySummaryIncomeExpense1(),provideMerchantRawPricingFromLoadfile(),new HashMap<>());
-		List<MBSDailySummaryIncomeExpense>  mbsDailySummaryIncomeExpenseList5 = (List<MBSDailySummaryIncomeExpense>) met1.invoke(new lcDailyBillingService(), provideMBSDailySummaryIncomeExpense2(),provideMerchantRawPricingFromLoadfile2(),provideDailyDetailFileICDescVpMp2());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList2 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), null,provideMerchantRawPricingFromLoadfile(),provideDailyDetailFileICDescVpMp());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList3 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), providembDSIncomeExpense1(),provideMerchantRawPricingFromLoadfile(),null);
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList4 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), providembDSIncomeExpense1(),provideMerchantRawPricingFromLoadfile(),new HashMap<>());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList5 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), providembDSIncomeExpense2(),provideMerchantRawPricingFromLoadfile2(),provideDailyDetailFileICDescVpMp2());
 	}
 	
 	@Test
@@ -123,15 +123,15 @@ public class LcDailyBillingServiceTest {
 		Method met1 = clazz1.getDeclaredMethod("populateExpense", List.class,Map.class);
 		met1.setAccessible(true);
 		
-		List<MBSDailySummaryIncomeExpense>  mbsDailySummaryIncomeExpenseList1 = (List<MBSDailySummaryIncomeExpense>) met1.invoke(new lcDailyBillingService(), null,providePartnerSwithFeeConfig());
-		List<MBSDailySummaryIncomeExpense>  mbsDailySummaryIncomeExpenseList2 = (List<MBSDailySummaryIncomeExpense>) met1.invoke(new lcDailyBillingService(), new ArrayList<>(),providePartnerSwithFeeConfig());
-		List<MBSDailySummaryIncomeExpense>  mbsDailySummaryIncomeExpenseList3 = (List<MBSDailySummaryIncomeExpense>) met1.invoke(new lcDailyBillingService(), provideMBSDailySummaryIncomeExpense2(),providePartnerSwithFeeConfig2());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList1 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), null,providePartnerSwithFeeConfig());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList2 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), new ArrayList<>(),providePartnerSwithFeeConfig());
+		List<mbDSIncomeExpense>  mbDSIncomeExpenseList3 = (List<mbDSIncomeExpense>) met1.invoke(new lcDailyBillingService(), providembDSIncomeExpense2(),providePartnerSwithFeeConfig2());
 		
-		Assert.assertEquals(941000922495L, mbsDailySummaryIncomeExpenseList3.get(0).getMerchantNumber());
-		Assert.assertEquals("VP", mbsDailySummaryIncomeExpenseList3.get(0).getItemSubclass());
-		Assert.assertEquals(227, mbsDailySummaryIncomeExpenseList3.get(0).getItemType());
-		Assert.assertEquals(36.599999999999994, mbsDailySummaryIncomeExpenseList3.get(0).getExpense(),0);
-		Assert.assertEquals("STAR", mbsDailySummaryIncomeExpenseList3.get(0).getNetwork());
+		Assert.assertEquals(941000922495L, mbDSIncomeExpenseList3.get(0).getMerchantNumber());
+		Assert.assertEquals("VP", mbDSIncomeExpenseList3.get(0).getItemSubclass());
+		Assert.assertEquals(227, mbDSIncomeExpenseList3.get(0).getItemType());
+		Assert.assertEquals(36.599999999999994, mbDSIncomeExpenseList3.get(0).getExpense(),0);
+		Assert.assertEquals("STAR", mbDSIncomeExpenseList3.get(0).getNetwork());
 	}
 	
 	public Map<Long,Double> providePartnerSwithFeeConfig(){
@@ -145,7 +145,7 @@ public class LcDailyBillingServiceTest {
 	}
 	
 	
-	public static List<MBSDailySummaryIncomeExpense> provideMBSDailySummaryIncomeExpense1() throws ParseException {
+	public static List<mbDSIncomeExpense> providembDSIncomeExpense1() throws ParseException {
 		AcclynkSettlementFileDTR acclynkSettlementFileDTR_VP = new AcclynkSettlementFileDTR();
 		long merchantNumber = 941000122088L;
 		acclynkSettlementFileDTR_VP.setDtrSeqNum(111);
@@ -173,12 +173,12 @@ public class LcDailyBillingServiceTest {
 		List<AcclynkSettlementFileDTR> acclynkSettlementFileDTRList = new ArrayList<>();
 		acclynkSettlementFileDTRList.add(acclynkSettlementFileDTR_VP);
 		
-		List<MBSDailySummaryIncomeExpense> mBSDailySummaryIncomeExpenseGenericList = ExpenseAcDTRUtil.manupulateExpenseFromAcDTR(acclynkSettlementFileDTRList);
+		List<mbDSIncomeExpense> mbDSIncomeExpenseGenericList = ExpenseAcDTRUtil.manupulateExpenseFromAcDTR(acclynkSettlementFileDTRList);
 				
-		return mBSDailySummaryIncomeExpenseGenericList;
+		return mbDSIncomeExpenseGenericList;
 	}
 	
-	public static List<MBSDailySummaryIncomeExpense> provideMBSDailySummaryIncomeExpense2() throws ParseException {
+	public static List<mbDSIncomeExpense> providembDSIncomeExpense2() throws ParseException {
 		AcclynkSettlementFileDTR acclynkSettlementFileDTR_VP = new AcclynkSettlementFileDTR();
 		long merchantNumber = 941000922495L;
 		acclynkSettlementFileDTR_VP.setDtrSeqNum(227);
@@ -206,9 +206,9 @@ public class LcDailyBillingServiceTest {
 		List<AcclynkSettlementFileDTR> acclynkSettlementFileDTRList = new ArrayList<>();
 		acclynkSettlementFileDTRList.add(acclynkSettlementFileDTR_VP);
 		
-		List<MBSDailySummaryIncomeExpense> mBSDailySummaryIncomeExpenseGenericList = ExpenseAcDTRUtil.manupulateExpenseFromAcDTR(acclynkSettlementFileDTRList);
+		List<mbDSIncomeExpense> mbDSIncomeExpenseGenericList = ExpenseAcDTRUtil.manupulateExpenseFromAcDTR(acclynkSettlementFileDTRList);
 				
-		return mBSDailySummaryIncomeExpenseGenericList;
+		return mbDSIncomeExpenseGenericList;
 	}
 	
 	public Map<Long,Double> provideSwitchfeeconfig(){
@@ -243,42 +243,42 @@ public class LcDailyBillingServiceTest {
 	    return lst;
 	}
 	
-	public Map<String, MbsPricing> provideMerchantRawPricingFromLoadfile(){
-		Map<String, MbsPricing> merchantRawPricingMap = new HashMap<>();
-		MbsPricing mbsPricing = new MbsPricing();
-		mbsPricing.setMerchantNumber(941000922495L);
-		mbsPricing.setItemSubclass("MP");
-		mbsPricing.setRate(0.1);
-		mbsPricing.setPerItem(1.1);
-		mbsPricing.setItemType(227);
+	public Map<String, mbPricing> provideMerchantRawPricingFromLoadfile(){
+		Map<String, mbPricing> merchantRawPricingMap = new HashMap<>();
+		mbPricing mbPricing = new mbPricing();
+		mbPricing.setMerchantNumber(941000922495L);
+		mbPricing.setItemSubclass("MP");
+		mbPricing.setRate(0.1);
+		mbPricing.setPerItem(1.1);
+		mbPricing.setItemType(227);
 		final String checkCode = BillingUtil.generateCheckCodeFromPricingObj(941000922495L, "MP", 227);
-		merchantRawPricingMap.put(checkCode, mbsPricing);
+		merchantRawPricingMap.put(checkCode, mbPricing);
 		return merchantRawPricingMap;
 	}
 	
-	public Map<String, MbsPricing> provideMerchantRawPricingFromLoadfile2(){
-		Map<String, MbsPricing> merchantRawPricingMap = new HashMap<>();
-		MbsPricing mbsPricing = new MbsPricing();
-		mbsPricing.setMerchantNumber(941000922495L);
-		mbsPricing.setItemSubclass("VP");
-		mbsPricing.setRate(0.1);
-		mbsPricing.setPerItem(1.1);
-		mbsPricing.setItemType(227);
+	public Map<String, mbPricing> provideMerchantRawPricingFromLoadfile2(){
+		Map<String, mbPricing> merchantRawPricingMap = new HashMap<>();
+		mbPricing mbPricing = new mbPricing();
+		mbPricing.setMerchantNumber(941000922495L);
+		mbPricing.setItemSubclass("VP");
+		mbPricing.setRate(0.1);
+		mbPricing.setPerItem(1.1);
+		mbPricing.setItemType(227);
 		final String checkCode = BillingUtil.generateCheckCodeFromPricingObj(941000922495L, "VP", 227);
-		merchantRawPricingMap.put(checkCode, mbsPricing);
+		merchantRawPricingMap.put(checkCode, mbPricing);
 		return merchantRawPricingMap;
 	}
 	
-	public Map<String, MbsPricing> provideMerchantRawPricingFromLoadfile1(){
-		Map<String, MbsPricing> merchantRawPricingMap = new HashMap<>();
-		MbsPricing mbsPricing = new MbsPricing();
-		mbsPricing.setMerchantNumber(941000922495L);
-		mbsPricing.setItemSubclass("MP");
-		mbsPricing.setRate(0.1);
-		mbsPricing.setPerItem(1.1);
-		mbsPricing.setItemType(227);
+	public Map<String, mbPricing> provideMerchantRawPricingFromLoadfile1(){
+		Map<String, mbPricing> merchantRawPricingMap = new HashMap<>();
+		mbPricing mbPricing = new mbPricing();
+		mbPricing.setMerchantNumber(941000922495L);
+		mbPricing.setItemSubclass("MP");
+		mbPricing.setRate(0.1);
+		mbPricing.setPerItem(1.1);
+		mbPricing.setItemType(227);
 		final String checkCode = BillingUtil.generateCheckCodeFromPricingObj(941000922495L, "MP", 227);
-		merchantRawPricingMap.put(checkCode, mbsPricing);
+		merchantRawPricingMap.put(checkCode, mbPricing);
 		return merchantRawPricingMap;
 	}
 	

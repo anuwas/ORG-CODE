@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.me.lc.billing.dao.MbsPricing;
+import com.me.lc.billing.dao.mbPricing;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class MerchantRawPricingRowMapperTest {
@@ -40,11 +40,11 @@ public class MerchantRawPricingRowMapperTest {
 		lst.add(1);
 		lst.add(2);
 		merchantRawPricingRowMapper.extractData(mockResultSet(lst));
-		Map<String, MbsPricing> rawPricingMapper1  = merchantRawPricingRowMapper.extractData(provideResultSet1());
-		MbsPricing mbsPricing1 = rawPricingMapper1.get("943300112-VP-227");
-		Assert.assertEquals(943300112L, mbsPricing1.getMerchantNumber());
-		Assert.assertEquals(227, mbsPricing1.getItemType());
-		Assert.assertEquals("VP", mbsPricing1.getItemSubclass());
+		Map<String, mbPricing> rawPricingMapper1  = merchantRawPricingRowMapper.extractData(provideResultSet1());
+		mbPricing mbPricing1 = rawPricingMapper1.get("943300112-VP-227");
+		Assert.assertEquals(943300112L, mbPricing1.getMerchantNumber());
+		Assert.assertEquals(227, mbPricing1.getItemType());
+		Assert.assertEquals("VP", mbPricing1.getItemSubclass());
         merchantRawPricingRowMapper.extractData(provideResultSet2());
         merchantRawPricingRowMapper.extractData(provideResultSet3());
         merchantRawPricingRowMapper.extractData(provideResultSet4());
@@ -52,7 +52,7 @@ public class MerchantRawPricingRowMapperTest {
         merchantRawPricingRowMapper.extractData(provideResultSet6());
         merchantRawPricingRowMapper.extractData(provideResultSet7());
         merchantRawPricingRowMapper.extractData(provideResultSet8());
-        Map<String, MbsPricing> rawPricingMapper9  = merchantRawPricingRowMapper.extractData(provideResultSet9());
+        Map<String, mbPricing> rawPricingMapper9  = merchantRawPricingRowMapper.extractData(provideResultSet9());
         Assert.assertEquals(new HashMap<>(), rawPricingMapper9);
         
 	}

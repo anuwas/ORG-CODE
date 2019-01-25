@@ -9,7 +9,7 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 import com.me.lc.billing.dao.DailyDetailFileICDesc;
-import com.me.lc.billing.dao.MbsPricing;
+import com.me.lc.billing.dao.mbPricing;
 import com.me.lc.util.BillingUtil;
 
 public class BillingUtilTest {
@@ -53,44 +53,44 @@ public class BillingUtilTest {
 	}
 
 	@Test
-	public void getMbsPricingFromCodeTest() {
-		MbsPricing mp1 = new MbsPricing();
+	public void getmbPricingFromCodeTest() {
+		mbPricing mp1 = new mbPricing();
 		mp1.setMerchantNumber(941000122088L);
 		mp1.setItemSubclass("VP");
 		mp1.setItemType(227);
 		mp1.setRate(1.02);
 		mp1.setPerItem(0.12);
 
-		MbsPricing mp2 = new MbsPricing();
+		mbPricing mp2 = new mbPricing();
 		mp2.setMerchantNumber(941000122088L);
 		mp2.setItemSubclass("MP");
 		mp2.setItemType(228);
 		mp2.setRate(1.02);
 		mp2.setPerItem(0.12);
 
-		Map<String, MbsPricing> pricingMap = new HashMap<>();
+		Map<String, mbPricing> pricingMap = new HashMap<>();
 		pricingMap.put("941000122088-VP-227", mp1);
 		pricingMap.put("941000122088-MP-228", mp2);
 
-		MbsPricing mpobj1 = BillingUtil.getMbsPricingFromCode(pricingMap, "941000122088-VP-227");
+		mbPricing mpobj1 = BillingUtil.getmbPricingFromCode(pricingMap, "941000122088-VP-227");
 		Assert.assertEquals(941000122088L, mpobj1.getMerchantNumber());
 		Assert.assertEquals("VP", mpobj1.getItemSubclass());
 		Assert.assertEquals(227, mpobj1.getItemType());
 		Assert.assertEquals(1.02, mpobj1.getRate(), 0);
 		Assert.assertEquals(0.12, mpobj1.getPerItem(), 0);
 
-		MbsPricing mpobj2 = BillingUtil.getMbsPricingFromCode(pricingMap, "941000122088-MP-228");
+		mbPricing mpobj2 = BillingUtil.getmbPricingFromCode(pricingMap, "941000122088-MP-228");
 		Assert.assertEquals(941000122088L, mpobj2.getMerchantNumber());
 		Assert.assertEquals("MP", mpobj2.getItemSubclass());
 		Assert.assertEquals(228, mpobj2.getItemType());
 		Assert.assertEquals(1.02, mpobj2.getRate(), 0);
 		Assert.assertEquals(0.12, mpobj2.getPerItem(), 0);
 		
-		MbsPricing mpobj4 = BillingUtil.getMbsPricingFromCode(pricingMap, null);
+		mbPricing mpobj4 = BillingUtil.getmbPricingFromCode(pricingMap, null);
 		Assert.assertEquals(null, mpobj4);
-		MbsPricing mpobj5 = BillingUtil.getMbsPricingFromCode(null, "941000122088-MP-228");
+		mbPricing mpobj5 = BillingUtil.getmbPricingFromCode(null, "941000122088-MP-228");
 		Assert.assertEquals(null, mpobj5);
-		MbsPricing mpobj6 = BillingUtil.getMbsPricingFromCode(null, null);
+		mbPricing mpobj6 = BillingUtil.getmbPricingFromCode(null, null);
 		Assert.assertEquals(null, mpobj6);
 	}
 

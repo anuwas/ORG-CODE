@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import com.me.lc.billing.dao.AcclynkSettlementFileDTR;
-import com.me.lc.billing.dao.MBSDailySummaryIncomeExpense;
+import com.me.lc.billing.dao.mbDSIncomeExpense;
 import com.me.lc.util.ExpenseAcDTRUtil;
 
 public class ExpenseAcDTRUtilTest {
@@ -71,58 +71,58 @@ public class ExpenseAcDTRUtilTest {
 		List<AcclynkSettlementFileDTR> acclynkSettlementFileDTRList = new ArrayList<>();
 		acclynkSettlementFileDTRList.add(acclynkSettlementFileDTR_VP);
 		acclynkSettlementFileDTRList.add(acclynkSettlementFileDTR_MP);
-		List<MBSDailySummaryIncomeExpense> mBSDailySummaryExpense = ExpenseAcDTRUtil.manupulateExpenseFromAcDTR(acclynkSettlementFileDTRList);
+		List<mbDSIncomeExpense> mbDSExpense = ExpenseAcDTRUtil.manupulateExpenseFromAcDTR(acclynkSettlementFileDTRList);
 
-		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjVP = mBSDailySummaryExpense.get(0);
-		Assert.assertEquals(CARD_TYPE_VP, mbsDailySummaryExpenseObjVP.getItemSubclass());
+		mbDSIncomeExpense mbDSExpenseObjVP = mbDSExpense.get(0);
+		Assert.assertEquals(CARD_TYPE_VP, mbDSExpenseObjVP.getItemSubclass());
 		
-		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjVP227 = mBSDailySummaryExpense.get(0);
-		Assert.assertEquals(AcSWITCHFEE, mbsDailySummaryExpenseObjVP227.getItemType());
-		Assert.assertEquals(3.20, mbsDailySummaryExpenseObjVP227.getExpense(),0);
+		mbDSIncomeExpense mbDSExpenseObjVP227 = mbDSExpense.get(0);
+		Assert.assertEquals(AcSWITCHFEE, mbDSExpenseObjVP227.getItemType());
+		Assert.assertEquals(3.20, mbDSExpenseObjVP227.getExpense(),0);
 		
-		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjVP111 = mBSDailySummaryExpense.get(1);
-		Assert.assertEquals(DEBITNETWORKINTERCHANGE, mbsDailySummaryExpenseObjVP111.getItemType());
-		Assert.assertEquals(2.20, mbsDailySummaryExpenseObjVP111.getExpense(),0);
+		mbDSIncomeExpense mbDSExpenseObjVP111 = mbDSExpense.get(1);
+		Assert.assertEquals(DEBITNETWORKINTERCHANGE, mbDSExpenseObjVP111.getItemType());
+		Assert.assertEquals(2.20, mbDSExpenseObjVP111.getExpense(),0);
 		
-		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjVP229 = mBSDailySummaryExpense.get(2);
-		Assert.assertEquals(DEBITNETWORKFEE, mbsDailySummaryExpenseObjVP229.getItemType());
-		Assert.assertEquals(1.20, mbsDailySummaryExpenseObjVP229.getExpense(),0);
+		mbDSIncomeExpense mbDSExpenseObjVP229 = mbDSExpense.get(2);
+		Assert.assertEquals(DEBITNETWORKFEE, mbDSExpenseObjVP229.getItemType());
+		Assert.assertEquals(1.20, mbDSExpenseObjVP229.getExpense(),0);
 		
-		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjVP101 = mBSDailySummaryExpense.get(3);
-		Assert.assertEquals(DEBITDISCOUNTFEE, mbsDailySummaryExpenseObjVP101.getItemType());
-		Assert.assertEquals(0, mbsDailySummaryExpenseObjVP101.getExpense(),0);
+		mbDSIncomeExpense mbDSExpenseObjVP101 = mbDSExpense.get(3);
+		Assert.assertEquals(DEBITDISCOUNTFEE, mbDSExpenseObjVP101.getItemType());
+		Assert.assertEquals(0, mbDSExpenseObjVP101.getExpense(),0);
 		
-		MBSDailySummaryIncomeExpense mbsDailySummaryAuthVP = mBSDailySummaryExpense.get(4);
-		Assert.assertEquals(AUTHFEE, mbsDailySummaryAuthVP.getItemType());
-		Assert.assertEquals(0, mbsDailySummaryAuthVP.getExpense(),0);
+		mbDSIncomeExpense mbDSAuthVP = mbDSExpense.get(4);
+		Assert.assertEquals(AUTHFEE, mbDSAuthVP.getItemType());
+		Assert.assertEquals(0, mbDSAuthVP.getExpense(),0);
 		
 
-		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjMP = mBSDailySummaryExpense.get(5);
-		Assert.assertEquals(CARD_TYPE_MP, mbsDailySummaryExpenseObjMP.getItemSubclass());
+		mbDSIncomeExpense mbDSExpenseObjMP = mbDSExpense.get(5);
+		Assert.assertEquals(CARD_TYPE_MP, mbDSExpenseObjMP.getItemSubclass());
 		
-		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjMP227 = mBSDailySummaryExpense.get(5);
-		Assert.assertEquals(AcSWITCHFEE, mbsDailySummaryExpenseObjMP227.getItemType());
-		Assert.assertEquals(3.20, mbsDailySummaryExpenseObjMP227.getExpense(),0);
+		mbDSIncomeExpense mbDSExpenseObjMP227 = mbDSExpense.get(5);
+		Assert.assertEquals(AcSWITCHFEE, mbDSExpenseObjMP227.getItemType());
+		Assert.assertEquals(3.20, mbDSExpenseObjMP227.getExpense(),0);
 		
-		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjMP111 = mBSDailySummaryExpense.get(6);
-		Assert.assertEquals(DEBITNETWORKINTERCHANGE, mbsDailySummaryExpenseObjMP111.getItemType());
-		Assert.assertEquals(2.20, mbsDailySummaryExpenseObjMP111.getExpense(),0);
+		mbDSIncomeExpense mbDSExpenseObjMP111 = mbDSExpense.get(6);
+		Assert.assertEquals(DEBITNETWORKINTERCHANGE, mbDSExpenseObjMP111.getItemType());
+		Assert.assertEquals(2.20, mbDSExpenseObjMP111.getExpense(),0);
 		
-		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjMP229 = mBSDailySummaryExpense.get(7);
-		Assert.assertEquals(DEBITNETWORKFEE, mbsDailySummaryExpenseObjMP229.getItemType());
-		Assert.assertEquals(1.20, mbsDailySummaryExpenseObjMP229.getExpense(),0);
+		mbDSIncomeExpense mbDSExpenseObjMP229 = mbDSExpense.get(7);
+		Assert.assertEquals(DEBITNETWORKFEE, mbDSExpenseObjMP229.getItemType());
+		Assert.assertEquals(1.20, mbDSExpenseObjMP229.getExpense(),0);
 		
-		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjMP101 = mBSDailySummaryExpense.get(8);
-		Assert.assertEquals(DEBITDISCOUNTFEE, mbsDailySummaryExpenseObjMP101.getItemType());
-		Assert.assertEquals(0, mbsDailySummaryExpenseObjMP101.getExpense(),0);
+		mbDSIncomeExpense mbDSExpenseObjMP101 = mbDSExpense.get(8);
+		Assert.assertEquals(DEBITDISCOUNTFEE, mbDSExpenseObjMP101.getItemType());
+		Assert.assertEquals(0, mbDSExpenseObjMP101.getExpense(),0);
 		
-		MBSDailySummaryIncomeExpense mbsDailySummaryAuthMP = mBSDailySummaryExpense.get(9);
-		Assert.assertEquals(AUTHFEE, mbsDailySummaryAuthMP.getItemType());
-		Assert.assertEquals(0, mbsDailySummaryAuthMP.getExpense(),0);
+		mbDSIncomeExpense mbDSAuthMP = mbDSExpense.get(9);
+		Assert.assertEquals(AUTHFEE, mbDSAuthMP.getItemType());
+		Assert.assertEquals(0, mbDSAuthMP.getExpense(),0);
 		
 		List<AcclynkSettlementFileDTR> acclynkSettlementFileDTRListEmpty = null;
-		List<MBSDailySummaryIncomeExpense> mBSDailySummaryExpenseempty = ExpenseAcDTRUtil.manupulateExpenseFromAcDTR(acclynkSettlementFileDTRListEmpty);
-		Assert.assertEquals(new ArrayList<>(), mBSDailySummaryExpenseempty);
+		List<mbDSIncomeExpense> mbDSExpenseempty = ExpenseAcDTRUtil.manupulateExpenseFromAcDTR(acclynkSettlementFileDTRListEmpty);
+		Assert.assertEquals(new ArrayList<>(), mbDSExpenseempty);
 	}
 	
 	@Test
