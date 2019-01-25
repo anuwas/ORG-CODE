@@ -20,13 +20,13 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.me.lc.billing.config.PartnerConfig;
 import com.me.lc.billing.dao.AcclynkSettlementFileDTR;
-import com.me.lc.billing.dao.AcculynkBillingRepository;
+import com.me.lc.billing.dao.AcBillingRepository;
 import com.me.lc.billing.dao.DailyDetailFileICDesc;
 import com.me.lc.billing.dao.MBSDailySummaryIncomeExpense;
 import com.me.lc.billing.dao.MbsPricing;
 import com.me.lc.billing.dto.PinlessDebitNetworkFees;
 import com.me.lc.util.BillingUtil;
-import com.me.lc.util.ExpenseAcculynkDTRUtil;
+import com.me.lc.util.ExpenseAcDTRUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class LcDailyBillingServiceTest {
@@ -34,14 +34,14 @@ public class LcDailyBillingServiceTest {
 	public static final String DATE_FORMAT_DD_MM_YY = "dd/MM/yyyy";
 	public static final String CARD_TYPE_VP = "VP";
 	public static final String CARD_TYPE_MP = "MP";
-	public static final int ACCULYNKSWITCHFEE = 227;
+	public static final int AcSWITCHFEE = 227;
 	public static final int DEBITNETWORKINTERCHANGE = 111;
 	public static final int DEBITNETWORKFEE = 229;
 	public static final int DEBITDISCOUNTFEE = 101;
 	public static final int AUTHFEE = 1;
 
 	@Mock
-	private AcculynkBillingRepository acculynkBillingRepository;
+	private AcBillingRepository AcBillingRepository;
 	
 	@Mock
 	private PartnerConfig partnerConfig;
@@ -56,44 +56,44 @@ public class LcDailyBillingServiceTest {
 	
 	@Test
 	public void acceptTest() {
-		Mockito.when(acculynkBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
-		Mockito.when(acculynkBillingRepository.getMerchantRawPricingFromLoadfile("TEST.ACCULYNK.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
-		Mockito.when(acculynkBillingRepository.getSettlementDataFromLoadfileName("TEST.ACCULYNK.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
+		Mockito.when(AcBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
+		Mockito.when(AcBillingRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
+		Mockito.when(AcBillingRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
 		Mockito.when(partnerConfig.getSwitchfeeconfig()).thenReturn(provideSwitchfeeconfig());
-		Mockito.when(acculynkBillingRepository.callLoadFileIndex("TEST.ACCULYNK.me.20181023.dat")).thenReturn(1234567L);
-		lcDailyBillingService.accept("TEST.ACCULYNK.me.20181023.dat");
+		Mockito.when(AcBillingRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(1234567L);
+		lcDailyBillingService.accept("TEST.Ac.me.20181023.dat");
 		
-		Mockito.when(acculynkBillingRepository.getAcculynkSettlementDTRZeroDebitNetwork("TEST.ACCULYNK.me.20181023.dat")).thenReturn(provideAcculynkSettlementDTRZeroDebitNetwork1());
-		Mockito.when(acculynkBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
-		Mockito.when(acculynkBillingRepository.getMerchantRawPricingFromLoadfile("TEST.ACCULYNK.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
-		Mockito.when(acculynkBillingRepository.getSettlementDataFromLoadfileName("TEST.ACCULYNK.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
+		Mockito.when(AcBillingRepository.getAcSettlementDTRZeroDebitNetwork("TEST.Ac.me.20181023.dat")).thenReturn(provideAcSettlementDTRZeroDebitNetwork1());
+		Mockito.when(AcBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
+		Mockito.when(AcBillingRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
+		Mockito.when(AcBillingRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
 		Mockito.when(partnerConfig.getSwitchfeeconfig()).thenReturn(provideSwitchfeeconfig());
-		Mockito.when(acculynkBillingRepository.callLoadFileIndex("TEST.ACCULYNK.me.20181023.dat")).thenReturn(1234567L);
-		lcDailyBillingService.accept("TEST.ACCULYNK.me.20181023.dat");
+		Mockito.when(AcBillingRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(1234567L);
+		lcDailyBillingService.accept("TEST.Ac.me.20181023.dat");
 		
-		Mockito.when(acculynkBillingRepository.getAcculynkSettlementDTRZeroDebitNetwork("TEST_ACCULYNK2018010101.txt")).thenReturn(provideAcculynkSettlementDTRZeroDebitNetwork1());
-		Mockito.when(acculynkBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
-		Mockito.when(acculynkBillingRepository.getMerchantRawPricingFromLoadfile("TEST.ACCULYNK.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
-		Mockito.when(acculynkBillingRepository.getSettlementDataFromLoadfileName("TEST.ACCULYNK.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
+		Mockito.when(AcBillingRepository.getAcSettlementDTRZeroDebitNetwork("TEST_Ac2018010101.txt")).thenReturn(provideAcSettlementDTRZeroDebitNetwork1());
+		Mockito.when(AcBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
+		Mockito.when(AcBillingRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
+		Mockito.when(AcBillingRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
 		Mockito.when(partnerConfig.getSwitchfeeconfig()).thenReturn(provideSwitchfeeconfig());
-		Mockito.when(acculynkBillingRepository.callLoadFileIndex("TEST.ACCULYNK.me.20181023.dat")).thenReturn(1234567L);
-		lcDailyBillingService.accept("TEST.ACCULYNK.me.20181023.dat");
+		Mockito.when(AcBillingRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(1234567L);
+		lcDailyBillingService.accept("TEST.Ac.me.20181023.dat");
 		
-		Mockito.when(acculynkBillingRepository.getAcculynkSettlementDTRZeroDebitNetwork("TEST.ACCULYNK.me.20181023.dat")).thenReturn(null);
-		Mockito.when(acculynkBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
-		Mockito.when(acculynkBillingRepository.getMerchantRawPricingFromLoadfile("TEST.ACCULYNK.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
-		Mockito.when(acculynkBillingRepository.getSettlementDataFromLoadfileName("TEST.ACCULYNK.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
+		Mockito.when(AcBillingRepository.getAcSettlementDTRZeroDebitNetwork("TEST.Ac.me.20181023.dat")).thenReturn(null);
+		Mockito.when(AcBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(provideDailyDetailFileICDescVpMp());
+		Mockito.when(AcBillingRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(provideMerchantRawPricingFromLoadfile());
+		Mockito.when(AcBillingRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(provideSettlementDataFromLoadfileName());
 		Mockito.when(partnerConfig.getSwitchfeeconfig()).thenReturn(provideSwitchfeeconfig());
-		Mockito.when(acculynkBillingRepository.callLoadFileIndex("TEST.ACCULYNK.me.20181023.dat")).thenReturn(1234567L);
-		lcDailyBillingService.accept("TEST.ACCULYNK.me.20181023.dat");
+		Mockito.when(AcBillingRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(1234567L);
+		lcDailyBillingService.accept("TEST.Ac.me.20181023.dat");
 		
-		Mockito.when(acculynkBillingRepository.getAcculynkSettlementDTRZeroDebitNetwork("TEST.ACCULYNK.me.20181023.dat")).thenReturn(null);
-		Mockito.when(acculynkBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(null);
-		Mockito.when(acculynkBillingRepository.getMerchantRawPricingFromLoadfile("TEST.ACCULYNK.me.20181023.dat")).thenReturn(null);
-		Mockito.when(acculynkBillingRepository.getSettlementDataFromLoadfileName("TEST.ACCULYNK.me.20181023.dat")).thenReturn(null);
+		Mockito.when(AcBillingRepository.getAcSettlementDTRZeroDebitNetwork("TEST.Ac.me.20181023.dat")).thenReturn(null);
+		Mockito.when(AcBillingRepository.getDailyDetailFileICDescVpMp()).thenReturn(null);
+		Mockito.when(AcBillingRepository.getMerchantRawPricingFromLoadfile("TEST.Ac.me.20181023.dat")).thenReturn(null);
+		Mockito.when(AcBillingRepository.getSettlementDataFromLoadfileName("TEST.Ac.me.20181023.dat")).thenReturn(null);
 		Mockito.when(partnerConfig.getSwitchfeeconfig()).thenReturn(null);
-		Mockito.when(acculynkBillingRepository.callLoadFileIndex("TEST.ACCULYNK.me.20181023.dat")).thenReturn(null);
-		lcDailyBillingService.accept("TEST.ACCULYNK.me.20181023.dat");
+		Mockito.when(AcBillingRepository.callLoadFileIndex("TEST.Ac.me.20181023.dat")).thenReturn(null);
+		lcDailyBillingService.accept("TEST.Ac.me.20181023.dat");
 		
 	}
 	
@@ -173,7 +173,7 @@ public class LcDailyBillingServiceTest {
 		List<AcclynkSettlementFileDTR> acclynkSettlementFileDTRList = new ArrayList<>();
 		acclynkSettlementFileDTRList.add(acclynkSettlementFileDTR_VP);
 		
-		List<MBSDailySummaryIncomeExpense> mBSDailySummaryIncomeExpenseGenericList = ExpenseAcculynkDTRUtil.manupulateExpenseFromAcculynkDTR(acclynkSettlementFileDTRList);
+		List<MBSDailySummaryIncomeExpense> mBSDailySummaryIncomeExpenseGenericList = ExpenseAcDTRUtil.manupulateExpenseFromAcDTR(acclynkSettlementFileDTRList);
 				
 		return mBSDailySummaryIncomeExpenseGenericList;
 	}
@@ -206,7 +206,7 @@ public class LcDailyBillingServiceTest {
 		List<AcclynkSettlementFileDTR> acclynkSettlementFileDTRList = new ArrayList<>();
 		acclynkSettlementFileDTRList.add(acclynkSettlementFileDTR_VP);
 		
-		List<MBSDailySummaryIncomeExpense> mBSDailySummaryIncomeExpenseGenericList = ExpenseAcculynkDTRUtil.manupulateExpenseFromAcculynkDTR(acclynkSettlementFileDTRList);
+		List<MBSDailySummaryIncomeExpense> mBSDailySummaryIncomeExpenseGenericList = ExpenseAcDTRUtil.manupulateExpenseFromAcDTR(acclynkSettlementFileDTRList);
 				
 		return mBSDailySummaryIncomeExpenseGenericList;
 	}
@@ -380,7 +380,7 @@ public class LcDailyBillingServiceTest {
 	@Test
 	public void getPartnerMerchantSwitchFeesTest() {
 		
-		Mockito.when(acculynkBillingRepository.getParnterMerchants(3941400180L)).thenReturn(provideMerchantNumber());
+		Mockito.when(AcBillingRepository.getParnterMerchants(3941400180L)).thenReturn(provideMerchantNumber());
 		Map<Long,Double> partnerConfig1 = new HashMap<>();
 		partnerConfig1.put(3941400180L, 0.07);
 		Map<Long,Double> merchatWithSwitchFee = lcDailyBillingService.getPartnerMerchantSwitchFees(partnerConfig1);
@@ -446,7 +446,7 @@ public class LcDailyBillingServiceTest {
 		return pinlessDebitNetworkFeesList;
 	}
 	
-	public static List<AcclynkSettlementFileDTR> provideAcculynkSettlementDTRZeroDebitNetwork1(){
+	public static List<AcclynkSettlementFileDTR> provideAcSettlementDTRZeroDebitNetwork1(){
 		List<AcclynkSettlementFileDTR> acclynkSettlementFileDTRList = new ArrayList<>();
 		
 		AcclynkSettlementFileDTR acclynkSettlementFileDTRObj1 = new AcclynkSettlementFileDTR();

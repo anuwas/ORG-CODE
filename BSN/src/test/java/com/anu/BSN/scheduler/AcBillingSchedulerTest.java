@@ -7,16 +7,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.me.lc.billing.service.AcculynkService;
+import com.me.lc.billing.service.AcService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AcBillingSchedulerTest {
 	
 	@Mock
-	private AcculynkService acculynkService;
+	private AcService AcService;
 	
 	@InjectMocks
-	 private AcculynkBillingScheduler acculynkBillingScheduler;
+	 private AcBillingScheduler AcBillingScheduler;
 	
 	@Before
 	 public void setUp() throws Exception {
@@ -25,12 +25,12 @@ public class AcBillingSchedulerTest {
 	
 	@Test
 	public void dailyBillingJobSchedularTest() {
-		acculynkBillingScheduler.dailyBillingJobSchedular();
+		AcBillingScheduler.dailyBillingJobSchedular();
 	}
 	
 	@Test
-	public void acculynkFundingJobTest() {
-		acculynkBillingScheduler.acculynkFundingJob();
+	public void AcFundingJobTest() {
+		AcBillingScheduler.AcFundingJob();
 	}
 
 }

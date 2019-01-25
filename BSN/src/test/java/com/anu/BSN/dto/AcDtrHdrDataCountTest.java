@@ -23,7 +23,7 @@ public class AcDtrHdrDataCountTest {
 	private ResultSet rs;
 	
 	@InjectMocks
-	AcculynkDtrHdrDataCount AcculynkDtrHdrDataCount;
+	AcDtrHdrDataCount AcDtrHdrDataCount;
 	
 	@Before
 	 public void setUp() throws Exception {
@@ -36,7 +36,7 @@ public class AcDtrHdrDataCountTest {
 		List<Integer> lst = new ArrayList<>();
 		lst.add(1);
 		lst.add(2);
-		status = AcculynkDtrHdrDataCount.extractData(mockResultSet(lst));
+		status = AcDtrHdrDataCount.extractData(mockResultSet(lst));
 		Assert.assertEquals(true, status);
 		
 		CustomResultSet myResultSet = new CustomResultSet();
@@ -54,7 +54,7 @@ public class AcDtrHdrDataCountTest {
         }
         
         ResultSet customRS = myResultSet.getResultSet(headers, data);
-        status = AcculynkDtrHdrDataCount.extractData(customRS);
+        status = AcDtrHdrDataCount.extractData(customRS);
         Assert.assertEquals(false, status);
         
         List<List<Object>> data2 = new ArrayList<List<Object>>();
@@ -66,7 +66,7 @@ public class AcDtrHdrDataCountTest {
             data2.add(objects);
         }
         ResultSet customRS2 = myResultSet.getResultSet(headers, data2);
-        status = AcculynkDtrHdrDataCount.extractData(customRS2);
+        status = AcDtrHdrDataCount.extractData(customRS2);
         Assert.assertEquals(true, status);
 	}
 	

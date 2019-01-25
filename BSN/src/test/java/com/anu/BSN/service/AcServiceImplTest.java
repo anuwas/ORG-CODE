@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.me.lc.billing.dao.AcculynkBillingRepository;
+import com.me.lc.billing.dao.AcBillingRepository;
 import com.me.lc.billing.dao.DailyDetailFileDTF;
 import com.me.ps.billing.util.DateTimeUtils;
 
@@ -24,13 +24,13 @@ import com.me.ps.billing.util.DateTimeUtils;
 public class AcServiceImplTest {
 	
 	 @Mock
-	 private AcculynkBillingRepository acculynkBillingRepository;
+	 private AcBillingRepository AcBillingRepository;
 
 	 @Mock
 	 private lcDailyBillingService lcDailyBillingService;
 	 
 	 @InjectMocks
-	 private AcculynkServiceImpl acculynkServiceImpl;
+	 private AcServiceImpl AcServiceImpl;
 
 	 @Before
 	 public void setUp() throws Exception {
@@ -40,20 +40,20 @@ public class AcServiceImplTest {
 	 @Test
 	 public void dailyBillingJobTest() {
 		 List<String> fileNameList = new ArrayList<>();
-		 fileNameList.add("TEST_ACCULYNK2018010101");
-		 fileNameList.add("TEST_ACCULYNK2018010102");
-		 Mockito.when(acculynkBillingRepository.getListofSettlementFilesnotBilled("2018-10-10")).thenReturn(fileNameList);
-		 String status = acculynkServiceImpl.dailyBillingJob("2018-10-10");
+		 fileNameList.add("TEST_Ac2018010101");
+		 fileNameList.add("TEST_Ac2018010102");
+		 Mockito.when(AcBillingRepository.getListofSettlementFilesnotBilled("2018-10-10")).thenReturn(fileNameList);
+		 String status = AcServiceImpl.dailyBillingJob("2018-10-10");
 		 Assert.assertEquals("success", status);
 		 
 		 List<String> fileNameList2 = new ArrayList<>();
-		 Mockito.when(acculynkBillingRepository.getListofSettlementFilesnotBilled("2018-10-10")).thenReturn(fileNameList2);
-		 String status2 = acculynkServiceImpl.dailyBillingJob("2018-10-10");
+		 Mockito.when(AcBillingRepository.getListofSettlementFilesnotBilled("2018-10-10")).thenReturn(fileNameList2);
+		 String status2 = AcServiceImpl.dailyBillingJob("2018-10-10");
 		 Assert.assertEquals("success", status2);
 		 
 		 List<String> fileNameList3 = null;
-		 Mockito.when(acculynkBillingRepository.getListofSettlementFilesnotBilled("2018-10-10")).thenReturn(fileNameList3);
-		 String status3 = acculynkServiceImpl.dailyBillingJob("2018-10-10");
+		 Mockito.when(AcBillingRepository.getListofSettlementFilesnotBilled("2018-10-10")).thenReturn(fileNameList3);
+		 String status3 = AcServiceImpl.dailyBillingJob("2018-10-10");
 		 Assert.assertEquals("success", status3);
 	 }
 	 
@@ -149,27 +149,27 @@ public class AcServiceImplTest {
 	
 	
 	 @Test
-	 public void acculynkFundingJobTest(){
-		acculynkServiceImpl.acculynkFundingJob();
+	 public void AcFundingJobTest(){
+		AcServiceImpl.AcFundingJob();
 		
-		Mockito.when(acculynkBillingRepository.getDailyDetailFundingList()).thenReturn(new ArrayList<DailyDetailFileDTF>());
-		acculynkServiceImpl.acculynkFundingJob();
+		Mockito.when(AcBillingRepository.getDailyDetailFundingList()).thenReturn(new ArrayList<DailyDetailFileDTF>());
+		AcServiceImpl.AcFundingJob();
 		
-		Mockito.when(acculynkBillingRepository.getDailyDetailFundingList()).thenReturn(getDailyDetailFundingList());
-		acculynkServiceImpl.acculynkFundingJob();
+		Mockito.when(AcBillingRepository.getDailyDetailFundingList()).thenReturn(getDailyDetailFundingList());
+		AcServiceImpl.AcFundingJob();
 		
-		Mockito.when(acculynkBillingRepository.getDailyDetailFundingList()).thenReturn(null);
+		Mockito.when(AcBillingRepository.getDailyDetailFundingList()).thenReturn(null);
 		try {
-			acculynkServiceImpl.acculynkFundingJob();
+			AcServiceImpl.AcFundingJob();
 		}catch(Exception ex) {
 			System.out.println("ArrayList<DailyDetailFileDTF>() null");
 		}
 		
-		Mockito.when(acculynkBillingRepository.getDailyDetailFundingList()).thenReturn(getDailyDetailFundingList());
-		acculynkServiceImpl.acculynkFundingJob(); 
+		Mockito.when(AcBillingRepository.getDailyDetailFundingList()).thenReturn(getDailyDetailFundingList());
+		AcServiceImpl.AcFundingJob(); 
 		
-		Mockito.when(acculynkBillingRepository.getDailyDetailFundingList()).thenReturn(getDailyDetailFundingList1());
-		acculynkServiceImpl.acculynkFundingJob(); 
+		Mockito.when(AcBillingRepository.getDailyDetailFundingList()).thenReturn(getDailyDetailFundingList1());
+		AcServiceImpl.AcFundingJob(); 
 	 }
 	 
 	 @Test
@@ -178,21 +178,21 @@ public class AcServiceImplTest {
 		 List<String> loadfileName = Arrays.asList(new String("TEXT.ACCULYNL1.dat"),new String("TEXT.ACCULYNL2.dat"));
 		 
 		 
-		 Mockito.when(acculynkBillingRepository.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01",loadfileName)).thenReturn(true);
-		 returnStatus = acculynkServiceImpl.clearDailyBillingDataByDateAPI("2018-01-01");
+		 Mockito.when(AcBillingRepository.cleanAcDailyBillingDataByLoadfileDate("2018-01-01",loadfileName)).thenReturn(true);
+		 returnStatus = AcServiceImpl.clearDailyBillingDataByDateAPI("2018-01-01");
 		 
 		 Assert.assertEquals("fail", returnStatus);
-		 Mockito.when(acculynkBillingRepository.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01",new ArrayList<>())).thenReturn(false);
-		 returnStatus =  acculynkServiceImpl.clearDailyBillingDataByDateAPI("2018-01-01");
+		 Mockito.when(AcBillingRepository.cleanAcDailyBillingDataByLoadfileDate("2018-01-01",new ArrayList<>())).thenReturn(false);
+		 returnStatus =  AcServiceImpl.clearDailyBillingDataByDateAPI("2018-01-01");
 		 Assert.assertEquals("fail", returnStatus);
 		 
-		 Mockito.when(acculynkBillingRepository.cleanAcculynkDailyBillingDataByLoadfileDate("",loadfileName)).thenReturn(false);
-		 returnStatus = acculynkServiceImpl.clearDailyBillingDataByDateAPI("2018-01-01");
+		 Mockito.when(AcBillingRepository.cleanAcDailyBillingDataByLoadfileDate("",loadfileName)).thenReturn(false);
+		 returnStatus = AcServiceImpl.clearDailyBillingDataByDateAPI("2018-01-01");
 		 
 		 Assert.assertEquals("fail", returnStatus);
-		 Mockito.when(acculynkBillingRepository.getListofSettlementFilesToClear("2018-01-01")).thenReturn(loadfileName);
-		 Mockito.when(acculynkBillingRepository.cleanAcculynkDailyBillingDataByLoadfileDate("2018-01-01",loadfileName)).thenReturn(true);
-		 returnStatus = acculynkServiceImpl.clearDailyBillingDataByDateAPI("2018-01-01");
+		 Mockito.when(AcBillingRepository.getListofSettlementFilesToClear("2018-01-01")).thenReturn(loadfileName);
+		 Mockito.when(AcBillingRepository.cleanAcDailyBillingDataByLoadfileDate("2018-01-01",loadfileName)).thenReturn(true);
+		 returnStatus = AcServiceImpl.clearDailyBillingDataByDateAPI("2018-01-01");
 		 
 		 
 		 Assert.assertEquals("success", returnStatus);

@@ -9,20 +9,20 @@ import org.junit.Assert;
 import org.junit.Test;
 import com.me.lc.billing.dao.AcclynkSettlementFileDTR;
 import com.me.lc.billing.dao.MBSDailySummaryIncomeExpense;
-import com.me.lc.util.ExpenseAcculynkDTRUtil;
+import com.me.lc.util.ExpenseAcDTRUtil;
 
 public class ExpenseAcDTRUtilTest {
 	public static final String DATE_FORMAT_DD_MM_YY = "dd/MM/yyyy";
 	public static final String CARD_TYPE_VP = "VP";
 	public static final String CARD_TYPE_MP = "MP";
-	public static final int ACCULYNKSWITCHFEE = 227;
+	public static final int AcSWITCHFEE = 227;
 	public static final int DEBITNETWORKINTERCHANGE = 111;
 	public static final int DEBITNETWORKFEE = 229;
 	public static final int DEBITDISCOUNTFEE = 101;
 	public static final int AUTHFEE = 1;
 
 	@Test
-	public void manupulateExpenseFromAcculynkDTRTest() throws ParseException {
+	public void manupulateExpenseFromAcDTRTest() throws ParseException {
 		AcclynkSettlementFileDTR acclynkSettlementFileDTR_VP = new AcclynkSettlementFileDTR();
 		AcclynkSettlementFileDTR acclynkSettlementFileDTR_MP = new AcclynkSettlementFileDTR();
 		long merchantNumber = 941000122088L;
@@ -71,13 +71,13 @@ public class ExpenseAcDTRUtilTest {
 		List<AcclynkSettlementFileDTR> acclynkSettlementFileDTRList = new ArrayList<>();
 		acclynkSettlementFileDTRList.add(acclynkSettlementFileDTR_VP);
 		acclynkSettlementFileDTRList.add(acclynkSettlementFileDTR_MP);
-		List<MBSDailySummaryIncomeExpense> mBSDailySummaryExpense = ExpenseAcculynkDTRUtil.manupulateExpenseFromAcculynkDTR(acclynkSettlementFileDTRList);
+		List<MBSDailySummaryIncomeExpense> mBSDailySummaryExpense = ExpenseAcDTRUtil.manupulateExpenseFromAcDTR(acclynkSettlementFileDTRList);
 
 		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjVP = mBSDailySummaryExpense.get(0);
 		Assert.assertEquals(CARD_TYPE_VP, mbsDailySummaryExpenseObjVP.getItemSubclass());
 		
 		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjVP227 = mBSDailySummaryExpense.get(0);
-		Assert.assertEquals(ACCULYNKSWITCHFEE, mbsDailySummaryExpenseObjVP227.getItemType());
+		Assert.assertEquals(AcSWITCHFEE, mbsDailySummaryExpenseObjVP227.getItemType());
 		Assert.assertEquals(3.20, mbsDailySummaryExpenseObjVP227.getExpense(),0);
 		
 		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjVP111 = mBSDailySummaryExpense.get(1);
@@ -101,7 +101,7 @@ public class ExpenseAcDTRUtilTest {
 		Assert.assertEquals(CARD_TYPE_MP, mbsDailySummaryExpenseObjMP.getItemSubclass());
 		
 		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjMP227 = mBSDailySummaryExpense.get(5);
-		Assert.assertEquals(ACCULYNKSWITCHFEE, mbsDailySummaryExpenseObjMP227.getItemType());
+		Assert.assertEquals(AcSWITCHFEE, mbsDailySummaryExpenseObjMP227.getItemType());
 		Assert.assertEquals(3.20, mbsDailySummaryExpenseObjMP227.getExpense(),0);
 		
 		MBSDailySummaryIncomeExpense mbsDailySummaryExpenseObjMP111 = mBSDailySummaryExpense.get(6);
@@ -121,16 +121,16 @@ public class ExpenseAcDTRUtilTest {
 		Assert.assertEquals(0, mbsDailySummaryAuthMP.getExpense(),0);
 		
 		List<AcclynkSettlementFileDTR> acclynkSettlementFileDTRListEmpty = null;
-		List<MBSDailySummaryIncomeExpense> mBSDailySummaryExpenseempty = ExpenseAcculynkDTRUtil.manupulateExpenseFromAcculynkDTR(acclynkSettlementFileDTRListEmpty);
+		List<MBSDailySummaryIncomeExpense> mBSDailySummaryExpenseempty = ExpenseAcDTRUtil.manupulateExpenseFromAcDTR(acclynkSettlementFileDTRListEmpty);
 		Assert.assertEquals(new ArrayList<>(), mBSDailySummaryExpenseempty);
 	}
 	
 	@Test
 	public void checkPrivateConstructor(){
 		try {
-			Constructor<ExpenseAcculynkDTRUtil> c = ExpenseAcculynkDTRUtil.class.getDeclaredConstructor();
+			Constructor<ExpenseAcDTRUtil> c = ExpenseAcDTRUtil.class.getDeclaredConstructor();
 			c.setAccessible(true); 
-			ExpenseAcculynkDTRUtil bu = c.newInstance();
+			ExpenseAcDTRUtil bu = c.newInstance();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
